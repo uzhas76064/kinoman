@@ -8,7 +8,7 @@ const createFiltersTemplate = () => `
   </ul>
 `;
 
-export default class FiltersView {
+export default class SortView {
   getTemplate () {
     return createFiltersTemplate();
   }
