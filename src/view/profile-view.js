@@ -1,4 +1,4 @@
-import {createElement} from "../render";
+import {createElement} from '../render';
 
 const createProfileViewTemplate = () => ` <section class="header__profile profile">
     <p class="profile__rating">Movie Buff</p>
