@@ -1,10 +1,10 @@
 import {createElement} from '../render';
 
-const createNewListTemplate = () => '<section class="films"></section>';
+const createFilmsViewTemplate = () => '<section class="films"></section>';
 
 export default class FilmsView {
   getTemplate () {
-    return createNewListTemplate();
+    return createFilmsViewTemplate();
   }
 
   getElement () {
