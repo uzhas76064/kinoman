@@ -4,6 +4,7 @@ import FilmCardView from './view/film-card-view.js';
 import SortView from './view/sort-view.js';
 import ProfileView from './view/profile-view.js';
 import FilterView from './view/filter-view';
+import ShowMoreView from './view/show-more-view';
 
 const siteMainElement = document.querySelector('.main');
 const headerElement = document.querySelector('.header');
@@ -16,3 +17,4 @@ render(new SortView(), siteMainElement, RenderPosition.AFTERBEGIN);
 const sectionFilms = document.querySelector('.films');
 
 render(new FilmCardView(), sectionFilms);
+render(new ShowMoreView(), sectionFilms);
