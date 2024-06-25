@@ -1,4 +1,5 @@
 import {getRandomInteger} from '../utils';
+import dayjs from 'dayjs';
 
 const generateRandomIndex = (dataList) =>  getRandomInteger(0, dataList.length - 1);
 
@@ -42,8 +43,11 @@ const generateDescription = () => {
   return descriptions[generateRandomIndex(descriptions)];
 };
 
+let movieIdCounter = 1;
+let commentIdCounter = 1;
+
 const generateMovie = () => ({
-  id: 0,
+  id: movieIdCounter++, // Уникальный ID для каждого фильма
   comments: [],
   filmInfo: {
     title: generateTitle(),
@@ -75,11 +79,12 @@ const generateLocalComment = () => ({
   emotion: 'smile'
 });
 
-const generateComment = () => ({
-  id: '42',
+const generateComment = (movieId) => ({
+  id: commentIdCounter++, // Уникальный ID для каждого комментария
+  movieId,               // Ссылка на фильм, к которому относится комментарий
   author: 'Ilya O\'Reilly',
   comment: 'a film that changed my life, a true masterpiece, post-credit scene was just amazing omg.',
-  date: '2019-05-11T16:12:32.554Z',
+  date: dayjs().format('DD/MM/YYYY'),
   emotion: 'smile'
 });
 
