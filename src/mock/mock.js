@@ -48,7 +48,7 @@ let commentIdCounter = 1;
 
 const generateMovie = () => ({
   id: movieIdCounter++, // Уникальный ID для каждого фильма
-  comments: [],
+  comments: Array.from({length: 4}, (_value, commentIndex) => String(commentIndex + 1 )),
   filmInfo: {
     title: generateTitle(),
     alternativeTitle: '',
@@ -79,9 +79,8 @@ const generateLocalComment = () => ({
   emotion: 'smile'
 });
 
-const generateComment = (movieId) => ({
+const generateComment = () => ({
   id: commentIdCounter++, // Уникальный ID для каждого комментария
-  movieId,               // Ссылка на фильм, к которому относится комментарий
   author: 'Ilya O\'Reilly',
   comment: 'a film that changed my life, a true masterpiece, post-credit scene was just amazing omg.',
   date: dayjs().format('DD/MM/YYYY'),
