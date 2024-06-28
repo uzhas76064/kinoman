@@ -49,7 +49,7 @@ const generateDescription = () => {
   return descriptions[generateRandomIndex(descriptions)];
 };
 
-const generateGenre = ()=> {
+const generateGenres = ()=> {
   const genres = [
     'Action',
     'Adventure',
@@ -74,7 +74,23 @@ const generateGenre = ()=> {
     'Western'
   ];
 
-  return genres[generateRandomIndex(genres)];
+  const numberOfGenres = getRandomInteger(0, 4);
+
+  // Используем Set для хранения уникальных жанров
+  const selectedGenres = new Set(
+    Array.from({ length: numberOfGenres }, () => genres[generateRandomIndex(genres)])
+  );
+
+  // Используем for...of для добавления жанров, если их меньше, чем нужно
+  for (const genre of genres) {
+    if (selectedGenres.size < numberOfGenres) {
+      selectedGenres.add(genre);
+    } else {
+      break;
+    }
+  }
+
+  return Array.from(selectedGenres);
 };
 
 let movieIdCounter = 1;
@@ -97,7 +113,7 @@ const generateMovie = () => ({
       releaseCountry: generateReleaseCountry()
     },
     runtime: getRandomInteger(77, 187),
-    genre: generateGenre(),
+    genre: generateGenres(),
     description: generateDescription()
   },
   userDetails: {
