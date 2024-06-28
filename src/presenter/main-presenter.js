@@ -14,16 +14,13 @@ export default class MainPresenter {
     this.moviesModel = moviesModel;
     this.movies = [...this.moviesModel.getMovies()];
 
-    console.log(this.films.getElement());
-
     render(new FilmsView(), this.filmsContainer);
     render(new FilterView(), this.filmsContainer, RenderPosition.BEFOREBEGIN);
     render(new SortView(), this.filmsContainer, RenderPosition.AFTERBEGIN);
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
       render(new FilmCardView(this.movies[i]), document.querySelector('.films'));
     }
-    console.log(this.films.getElement());
     render(new ShowMoreView(), document.querySelector('.films'));
   };
 }
