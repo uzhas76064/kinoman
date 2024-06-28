@@ -216,7 +216,7 @@ const generateMovie = () => ({
     },
     runtime: getRandomInteger(77, 187),
     genre: generateGenres(),
-    description: generateDescription()
+    description: generateDescription().slice(0, 50)
   },
   userDetails: {
     watchlist: false,
