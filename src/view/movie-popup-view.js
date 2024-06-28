@@ -1,6 +1,11 @@
 import {createElement} from '../render';
 
-const createMoviePopupViewTemplate = () => `<section class="film-details">
+const createMoviePopupViewTemplate = (popup) => {
+  const {title, totalRating, description, genre} = popup.filmInfo;
+  const {date, releaseCountry} = popup.filmInfo.release;
+
+  return (
+    `<section class="film-details">
   <form class="film-details__inner" action="" method="get">
     <div class="film-details__top-container">
       <div class="film-details__close">
@@ -16,7 +21,7 @@ const createMoviePopupViewTemplate = () => `<section class="film-details">
         <div class="film-details__info">
           <div class="film-details__info-head">
             <div class="film-details__title-wrap">
-              <h3 class="film-details__title">The Great Flamarion</h3>
+              <h3 class="film-details__title">${title}</h3>
               <p class="film-details__title-original">Original: The Great Flamarion</p>
             </div>
 
@@ -163,12 +168,17 @@ const createMoviePopupViewTemplate = () => `<section class="film-details">
       </section>
     </div>
   </form>
-</section>
-`;
+</section>`
+  );
+};
 
 export default class MoviePopupView {
+  constructor(popup) {
+    this.popup = popup;
+  }
+
   getTemplate () {
-    return createMoviePopupViewTemplate();
+    return createMoviePopupViewTemplate(this.popup);
   }
 
   getElement () {
