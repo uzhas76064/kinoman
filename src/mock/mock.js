@@ -1,4 +1,4 @@
-import {getRandomInteger} from '../utils';
+import {generateRandomFloat, getRandomInteger} from '../utils';
 import dayjs from 'dayjs';
 
 const generateRandomIndex = (dataList) =>  getRandomInteger(0, dataList.length - 1);
@@ -52,7 +52,7 @@ const generateMovie = () => ({
   filmInfo: {
     title: generateTitle(),
     alternativeTitle: '',
-    totalRating: 0,
+    totalRating: generateRandomFloat(),
     poster: generatePoster(),
     ageRating: 0,
     director: '',
