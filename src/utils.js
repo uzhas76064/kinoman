@@ -10,4 +10,26 @@ const generateRandomFloat = () => {
   return parseFloat(randomFloat);
 };
 
-export {getRandomInteger, generateRandomFloat};
+const generateRandomIndex = (dataList) =>  getRandomInteger(0, dataList.length - 1);
+
+const generateAmountStrings = (list) => {
+  const numberOfElements = getRandomInteger(1, 4);
+
+  // Используем Set для хранения уникальных жанров
+  const selectedElements = new Set(
+    Array.from({ length: numberOfElements }, () => list[generateRandomIndex(list)])
+  );
+
+  // Используем for...of для добавления жанров, если их меньше, чем нужно
+  for (const listElement of list) {
+    if (selectedElements.size < numberOfElements) {
+      selectedElements.add(listElement);
+    } else {
+      break;
+    }
+  }
+
+  return Array.from(selectedElements);
+};
+
+export {getRandomInteger, generateRandomFloat, generateRandomIndex, generateAmountStrings};

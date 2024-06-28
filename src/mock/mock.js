@@ -1,8 +1,5 @@
-import {generateRandomFloat, getRandomInteger} from '../utils';
+import {generateAmountStrings, generateRandomFloat, generateRandomIndex, getRandomInteger} from '../utils';
 import dayjs from 'dayjs';
-
-const generateRandomIndex = (dataList) =>  getRandomInteger(0, dataList.length - 1);
-
 
 const generateTitle = () => {
   const titles = [
@@ -74,23 +71,7 @@ const generateGenres = ()=> {
     'Western'
   ];
 
-  const numberOfGenres = getRandomInteger(1, 4);
-
-  // Используем Set для хранения уникальных жанров
-  const selectedGenres = new Set(
-    Array.from({ length: numberOfGenres }, () => genres[generateRandomIndex(genres)])
-  );
-
-  // Используем for...of для добавления жанров, если их меньше, чем нужно
-  for (const genre of genres) {
-    if (selectedGenres.size < numberOfGenres) {
-      selectedGenres.add(genre);
-    } else {
-      break;
-    }
-  }
-
-  return Array.from(selectedGenres);
+  return generateAmountStrings(genres);
 };
 
 const generateDates = (startDate, endDate) => {
@@ -124,22 +105,94 @@ const generateWriters = () => {
     'John Hughes',
     'Martin Scorsese'
   ];
-  const numberOfWriters = getRandomInteger(1, 4);
+  return generateAmountStrings(famousWriters);
+};
 
-  const selectedWriters = new Set(
-    Array.from({length: numberOfWriters},
-      ()=> famousWriters[generateRandomIndex(famousWriters)]));
+const generateDirector = () => {
+  const directors = [
+    'Alfred Hitchcock',
+    'Stanley Kubrick',
+    'Orson Welles',
+    'Akira Kurosawa',
+    'Federico Fellini',
+    'Ingmar Bergman',
+    'John Ford',
+    'Billy Wilder',
+    'Jean-Luc Godard',
+    'Francis Ford Coppola',
+    'Steven Spielberg',
+    'Martin Scorsese',
+    'François Truffaut',
+    'Sergio Leone',
+    'David Lean',
+    'Luis Buñuel',
+    'Howard Hawks',
+    'Woody Allen',
+    'Roman Polanski',
+    'Robert Altman'
+  ];
 
-  // Используем for...of для добавления жанров, если их меньше, чем нужно
-  for (const genre of famousWriters) {
-    if (selectedWriters.size < selectedWriters) {
-      selectedWriters.add(genre);
-    } else {
-      break;
-    }
-  }
+  return directors[generateRandomIndex(directors)];
+};
 
-  return Array.from(selectedWriters);
+const generateActors = () => {
+  const famousActors = [
+    'Marlon Brando',
+    'James Dean',
+    'Humphrey Bogart',
+    'Cary Grant',
+    'James Stewart',
+    'Clark Gable',
+    'John Wayne',
+    'Henry Fonda',
+    'Paul Newman',
+    'Gregory Peck',
+    'Charlie Chaplin',
+    'Laurence Olivier',
+    'Spencer Tracy',
+    'Gary Cooper',
+    'Orson Welles',
+    'Robert De Niro',
+    'Al Pacino',
+    'Jack Nicholson',
+    'Marlon Brando',
+    'Sidney Poitier'
+  ];
+
+  return generateAmountStrings(famousActors);
+};
+
+const generateAgeRating = () => {
+  const ages = ['0+', '6+', '12+', '16+', '18+'];
+
+  return ages[generateRandomIndex(ages)];
+};
+
+const generateAlternativeTitle = () => {
+  const alternativeTitles = [
+    'The Don',
+    'The Adventures of Luke Starkiller',
+    'Black Mask',
+    'Schindler\'s Ark',
+    'Everybody Comes to Rick\'s',
+    'The Bates Motel',
+    'American',
+    'Rita Hayworth and Shawshank Redemption',
+    'Tomorrow is Another Day',
+    'The Man Who Would Be King',
+    'The Magical Land of Oz',
+    'McMurphy',
+    'The Silence of the Deep',
+    'The Horror',
+    'Journey Beyond the Stars',
+    'The Singing Heart',
+    'A Boy\'s Life',
+    'The Italian Stallion',
+    'The Bronx Bull',
+    'Wise Guy'
+  ];
+
+  return alternativeTitles[generateRandomIndex(alternativeTitles)];
 };
 
 let movieIdCounter = 1;
@@ -150,13 +203,13 @@ const generateMovie = () => ({
   comments: Array.from({length: 4}, (_value, commentIndex) => String(commentIndex + 1 )),
   filmInfo: {
     title: generateTitle(),
-    alternativeTitle: '',
+    alternativeTitle: generateAlternativeTitle(),
     totalRating: generateRandomFloat(),
     poster: generatePoster(),
-    ageRating: 0,
-    director: '',
+    ageRating: generateAgeRating(),
+    director: generateDirector(),
     writers: generateWriters(),
-    actors: [],
+    actors: generateActors(),
     release: {
       date: generateDates('01/01/1920', '01/01/1989'),
       releaseCountry: generateReleaseCountry()
