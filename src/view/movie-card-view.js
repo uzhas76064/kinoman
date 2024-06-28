@@ -1,6 +1,6 @@
 import {createElement} from '../render';
 
-const createFilmCardTemplate = (movie) => {
+const createMovieCardTemplate = (movie) => {
   const {
     title,
     genre,
@@ -33,13 +33,13 @@ const createFilmCardTemplate = (movie) => {
         </article>`);
 };
 
-export default class FilmCardView {
+export default class MovieCardView {
   constructor(movie) {
     this.movie = movie;
   }
 
   getTemplate () {
-    return createFilmCardTemplate(this.movie);
+    return createMovieCardTemplate(this.movie);
   }
 
   getElement () {

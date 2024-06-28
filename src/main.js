@@ -1,8 +1,8 @@
 import {render} from './render.js';
 import ProfileView from './view/profile-view.js';
-// import FilmPopupView from './view/film-popup-view';
+// import MoviePopupView from './view/film-popup-view';
 import MainPresenter from './presenter/main-presenter';
-import MovieModel from './model/MovieModel';
+import MovieCardModel from './model/MovieCardModel';
 
 // const bodyElement = document.querySelector('body');
 const siteMainElement = document.querySelector('.main');
@@ -10,9 +10,9 @@ const headerElement = document.querySelector('.header');
 
 render(new ProfileView(), headerElement);
 
-// render(new FilmPopupView(), bodyElement);
+// render(new MoviePopupView(), bodyElement);
 
 const presenter= new MainPresenter();
-const movieModel = new MovieModel();
+const movieModel = new MovieCardModel();
 
 presenter.init(siteMainElement, movieModel);

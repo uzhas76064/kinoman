@@ -1,6 +1,6 @@
 import {createElement} from '../render';
 
-const createFilmPopupViewTemplate = () => `<section class="film-details">
+const createMoviePopupViewTemplate = () => `<section class="film-details">
   <form class="film-details__inner" action="" method="get">
     <div class="film-details__top-container">
       <div class="film-details__close">
@@ -166,9 +166,9 @@ const createFilmPopupViewTemplate = () => `<section class="film-details">
 </section>
 `;
 
-export default class FilmPopupView {
+export default class MoviePopupView {
   getTemplate () {
-    return createFilmPopupViewTemplate();
+    return createMoviePopupViewTemplate();
   }
 
   getElement () {
