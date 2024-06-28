@@ -93,6 +93,14 @@ const generateGenres = ()=> {
   return Array.from(selectedGenres);
 };
 
+const generateDates = (startDate, endDate) => {
+  const start = dayjs(startDate, 'DD/MMMM/YYYY').valueOf();
+  const end = dayjs(endDate, 'DD/MMMM/YYYY').valueOf();
+  const randomDate = dayjs(getRandomInteger(start, end));
+
+  return randomDate.format('DD MMMM YYYY');
+};
+
 let movieIdCounter = 1;
 let commentIdCounter = 1;
 
@@ -109,7 +117,7 @@ const generateMovie = () => ({
     writers: [],
     actors: [],
     release: {
-      date: dayjs(`${getRandomInteger(1900, 1999)}`).format('YYYY'),
+      date: generateDates('01/01/1920', '01/01/1989'),
       releaseCountry: generateReleaseCountry()
     },
     runtime: getRandomInteger(77, 187),
