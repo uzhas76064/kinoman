@@ -74,7 +74,7 @@ const generateGenres = ()=> {
     'Western'
   ];
 
-  const numberOfGenres = getRandomInteger(0, 4);
+  const numberOfGenres = getRandomInteger(1, 4);
 
   // Используем Set для хранения уникальных жанров
   const selectedGenres = new Set(
@@ -101,6 +101,47 @@ const generateDates = (startDate, endDate) => {
   return randomDate.format('DD MMMM YYYY');
 };
 
+const generateWriters = () => {
+  const famousWriters = [
+    'Woody Allen',
+    'Quentin Tarantino',
+    'Billy Wilder',
+    'Ingmar Bergman',
+    'Charlie Kaufman',
+    'Francis Ford Coppola',
+    'Stanley Kubrick',
+    'Ethan Coen',
+    'Joel Coen',
+    'Christopher Nolan',
+    'Robert Towne',
+    'Aaron Sorkin',
+    'Paddy Chayefsky',
+    'Eric Roth',
+    'Dalton Trumbo',
+    'Akira Kurosawa',
+    'David Mamet',
+    'Paul Schrader',
+    'John Hughes',
+    'Martin Scorsese'
+  ];
+  const numberOfWriters = getRandomInteger(1, 4);
+
+  const selectedWriters = new Set(
+    Array.from({length: numberOfWriters},
+      ()=> famousWriters[generateRandomIndex(famousWriters)]));
+
+  // Используем for...of для добавления жанров, если их меньше, чем нужно
+  for (const genre of famousWriters) {
+    if (selectedWriters.size < selectedWriters) {
+      selectedWriters.add(genre);
+    } else {
+      break;
+    }
+  }
+
+  return Array.from(selectedWriters);
+};
+
 let movieIdCounter = 1;
 let commentIdCounter = 1;
 
@@ -114,7 +155,7 @@ const generateMovie = () => ({
     poster: generatePoster(),
     ageRating: 0,
     director: '',
-    writers: [],
+    writers: generateWriters(),
     actors: [],
     release: {
       date: generateDates('01/01/1920', '01/01/1989'),

@@ -1,8 +1,11 @@
 import {createElement} from '../render';
 
 const createMoviePopupViewTemplate = (popup) => {
-  const {title, totalRating, description, genre} = popup.filmInfo;
+  const {title, totalRating, description, genre, writers} = popup.filmInfo;
   const {date, releaseCountry} = popup.filmInfo.release;
+
+  const writer = writers.map((wr) => wr);
+  const genres = genre.map((gr) => (`<span class="film-details__genre">${gr}</span>`));
 
   return (
     `<section class="film-details">
@@ -26,7 +29,7 @@ const createMoviePopupViewTemplate = (popup) => {
             </div>
 
             <div class="film-details__rating">
-              <p class="film-details__total-rating">8.9</p>
+              <p class="film-details__total-rating">${totalRating}</p>
             </div>
           </div>
 
@@ -37,7 +40,9 @@ const createMoviePopupViewTemplate = (popup) => {
             </tr>
             <tr class="film-details__row">
               <td class="film-details__term">Writers</td>
-              <td class="film-details__cell">Anne Wigton, Heinz Herald, Richard Weil</td>
+              <td class="film-details__cell">
+                ${writer}
+              </td>
             </tr>
             <tr class="film-details__row">
               <td class="film-details__term">Actors</td>
@@ -45,7 +50,7 @@ const createMoviePopupViewTemplate = (popup) => {
             </tr>
             <tr class="film-details__row">
               <td class="film-details__term">Release Date</td>
-              <td class="film-details__cell">30 March 1945</td>
+              <td class="film-details__cell">${date}</td>
             </tr>
             <tr class="film-details__row">
               <td class="film-details__term">Runtime</td>
@@ -53,20 +58,17 @@ const createMoviePopupViewTemplate = (popup) => {
             </tr>
             <tr class="film-details__row">
               <td class="film-details__term">Country</td>
-              <td class="film-details__cell">USA</td>
+              <td class="film-details__cell">${releaseCountry}</td>
             </tr>
             <tr class="film-details__row">
               <td class="film-details__term">Genres</td>
               <td class="film-details__cell">
-                <span class="film-details__genre">Drama</span>
-                <span class="film-details__genre">Film-Noir</span>
-                <span class="film-details__genre">Mystery</span></td>
+                ${genres}
+              </td>
             </tr>
           </table>
 
-          <p class="film-details__film-description">
-            The film opens following a murder at a cabaret in Mexico City in 1936, and then presents the events leading up to it in flashback. The Great Flamarion (Erich von Stroheim) is an arrogant, friendless, and misogynous marksman who displays his trick gunshot act in the vaudeville circuit. His show features a beautiful assistant, Connie (Mary Beth Hughes) and her drunken husband Al (Dan Duryea), Flamarion's other assistant. Flamarion falls in love with Connie, the movie's femme fatale, and is soon manipulated by her into killing her no good husband during one of their acts.
-          </p>
+          <p class="film-details__film-description">${description}</p>
         </div>
       </div>
 
