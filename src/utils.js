@@ -9,4 +9,5 @@ const generateRandomFloat = () => {
   const randomFloat = (Math.random() * 10).toFixed(1);
   return parseFloat(randomFloat);
 };
+
 export {getRandomInteger, generateRandomFloat};
