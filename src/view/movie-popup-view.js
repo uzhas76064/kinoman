@@ -1,11 +1,21 @@
 import {createElement} from '../render';
 
 const createMoviePopupViewTemplate = (popup) => {
-  const {title, totalRating, description, genre, writers} = popup.filmInfo;
+  const {title,
+    totalRating,
+    description,
+    genre,
+    writers,
+    director,
+    actors,
+    runtime,
+    ageRating,
+    alternativeTitle} = popup.filmInfo;
   const {date, releaseCountry} = popup.filmInfo.release;
 
   const writer = writers.map((wr) => wr);
   const genres = genre.map((gr) => (`<span class="film-details__genre">${gr}</span>`));
+  const actor = actors.map((act) => act);
 
   return (
     `<section class="film-details">
@@ -18,14 +28,14 @@ const createMoviePopupViewTemplate = (popup) => {
         <div class="film-details__poster">
           <img class="film-details__poster-img" src="./images/posters/the-great-flamarion.jpg" alt="">
 
-          <p class="film-details__age">18+</p>
+          <p class="film-details__age">${ageRating}</p>
         </div>
 
         <div class="film-details__info">
           <div class="film-details__info-head">
             <div class="film-details__title-wrap">
-              <h3 class="film-details__title">${title}</h3>
-              <p class="film-details__title-original">Original: The Great Flamarion</p>
+              <h3 class="film-details__title">${alternativeTitle}</h3>
+              <p class="film-details__title-original">Original: ${title}</p>
             </div>
 
             <div class="film-details__rating">
@@ -36,7 +46,7 @@ const createMoviePopupViewTemplate = (popup) => {
           <table class="film-details__table">
             <tr class="film-details__row">
               <td class="film-details__term">Director</td>
-              <td class="film-details__cell">Anthony Mann</td>
+              <td class="film-details__cell">${director}</td>
             </tr>
             <tr class="film-details__row">
               <td class="film-details__term">Writers</td>
@@ -46,7 +56,7 @@ const createMoviePopupViewTemplate = (popup) => {
             </tr>
             <tr class="film-details__row">
               <td class="film-details__term">Actors</td>
-              <td class="film-details__cell">Erich von Stroheim, Mary Beth Hughes, Dan Duryea</td>
+              <td class="film-details__cell">${actor}</td>
             </tr>
             <tr class="film-details__row">
               <td class="film-details__term">Release Date</td>
@@ -54,7 +64,7 @@ const createMoviePopupViewTemplate = (popup) => {
             </tr>
             <tr class="film-details__row">
               <td class="film-details__term">Runtime</td>
-              <td class="film-details__cell">1h 18m</td>
+              <td class="film-details__cell">${Math.floor(runtime / 60)}h ${runtime % 60 }m</td>
             </tr>
             <tr class="film-details__row">
               <td class="film-details__term">Country</td>
