@@ -8,7 +8,9 @@ const generateTitle = () => {
   const titles = [
     'The dance of life',
     'The Great Flamarion',
-    'Made for each other'];
+    'Made For Each other',
+    'Popeye Meets Sindbad',
+    'Sagebrush Trail'];
 
   return titles[generateRandomIndex(titles)];
 };
@@ -17,7 +19,11 @@ const generatePoster = () => {
   const posters = [
     './images/posters/the-great-flamarion.jpg',
     './images/posters/the-dance-of-life.jpg',
-    './images/posters/made-for-each-other.jpg'
+    './images/posters/made-for-each-other.png',
+    './images/posters/popeye-meets-sinbad.png',
+    './images/posters/sagebrush-trail.jpg',
+    './images/posters/santa-claus-conquers-the-martians.jpg',
+    './images/posters/the-man-with-the-golden-arm.jpg'
   ];
 
   return posters[generateRandomIndex(posters)];
