@@ -49,6 +49,34 @@ const generateDescription = () => {
   return descriptions[generateRandomIndex(descriptions)];
 };
 
+const generateGenre = ()=> {
+  const genres = [
+    'Action',
+    'Adventure',
+    'Animation',
+    'Biography',
+    'Comedy',
+    'Crime',
+    'Documentary',
+    'Drama',
+    'Family',
+    'Fantasy',
+    'Film Noir',
+    'History',
+    'Horror',
+    'Musical',
+    'Mystery',
+    'Romance',
+    'Sci-Fi',
+    'Sport',
+    'Thriller',
+    'War',
+    'Western'
+  ];
+
+  return genres[generateRandomIndex(genres)];
+};
+
 let movieIdCounter = 1;
 let commentIdCounter = 1;
 
@@ -65,11 +93,11 @@ const generateMovie = () => ({
     writers: [],
     actors: [],
     release: {
-      date: null,
+      date: dayjs(`${getRandomInteger(1900, 1999)}`).format('YYYY'),
       releaseCountry: generateReleaseCountry()
     },
-    runtime: 0,
-    genre: [],
+    runtime: getRandomInteger(77, 187),
+    genre: generateGenre(),
     description: generateDescription()
   },
   userDetails: {
