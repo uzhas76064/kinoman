@@ -38,7 +38,7 @@ export default class MainPresenter {
       render(new MovieCardView(this.movies[i]), document.querySelector('.films'));
     }
     // Рендерим попап фильма в элемент body
-    render(new MoviePopupView(this.popupMovie), this.bodyElement);
+    // render(new MoviePopupView(this.popupMovie), this.bodyElement);
     // Рендерим кнопку "Показать больше" в контейнер фильмов
     render(new ShowMoreView(), document.querySelector('.films'));
   };
