@@ -9,6 +9,7 @@ const createFiltersTemplate = () => `
 `;
 
 export default class SortView {
+  #element;
   // Геттер для шаблона
   get template() {
     return createFiltersTemplate();
@@ -17,11 +18,11 @@ export default class SortView {
   // Геттер для элемента
   get element() {
     // Если элемент не существует, создаем его
-    if (!this._element) {
-      this._element = createElement(this.template);
+    if (!this.#element) {
+      this.#element = createElement(this.template);
     }
 
-    return this._element;
+    return this.#element;
   }
 
   // Метод для удаления элемента

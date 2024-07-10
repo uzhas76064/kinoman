@@ -185,6 +185,7 @@ const createMoviePopupViewTemplate = (popup) => {
 };
 
 export default class MoviePopupView {
+  #element;
   constructor(popup) {
     this.popup = popup;
   }
@@ -197,11 +198,11 @@ export default class MoviePopupView {
   // Геттер для элемента
   get element() {
     // Если элемент не существует, создаем его
-    if (!this._element) {
-      this._element = createElement(this.template);
+    if (!this.#element) {
+      this.#element = createElement(this.template);
     }
 
-    return this._element;
+    return this.#element;
   }
 
   // Метод для удаления элемента
