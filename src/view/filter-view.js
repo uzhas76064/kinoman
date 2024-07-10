@@ -8,15 +8,23 @@ const createFilterViewTemplate = () => `<nav class="main-navigation">
   </nav>`;
 
 export default class FilterView {
-  getTemplate () {
+  // Геттер для шаблона
+  get template() {
     return createFilterViewTemplate();
   }
 
-  getElement () {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
+  // Геттер для элемента
+  get element() {
+    // Если элемент не существует, создаем его
+    if (!this._element) {
+      this._element = createElement(this.template);
     }
+    return this._element;
+  }
 
-    return this.element;
+  // Метод для удаления элемента
+  removeElement() {
+    this._element = null;
   }
 }
+

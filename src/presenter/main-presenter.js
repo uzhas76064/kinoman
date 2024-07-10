@@ -22,9 +22,9 @@ export default class MainPresenter {
     this.moviesModel = moviesModel;
     this.moviePopupModel = moviePopupModel;
     // Получаем список фильмов из модели и сохраняем его в свойство класса
-    this.movies = [...this.moviesModel.getMovies()];
+    this.movies = [...this.moviesModel.movies];
     // Получаем данные для попапа из модели и сохраняем их в свойство класса
-    this.popupMovie = this.moviePopupModel.getMoviePopup();
+    this.popupMovie = this.moviePopupModel.moviePopup;
 
     // Рендерим представление фильмов в контейнер
     render(new MoviesView(), this.moviesContainer);
