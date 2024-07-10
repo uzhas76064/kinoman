@@ -189,15 +189,23 @@ export default class MoviePopupView {
     this.popup = popup;
   }
 
-  getTemplate () {
+  // Геттер для шаблона
+  get template() {
     return createMoviePopupViewTemplate(this.popup);
   }
 
-  getElement () {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
+  // Геттер для элемента
+  get element() {
+    // Если элемент не существует, создаем его
+    if (!this._element) {
+      this._element = createElement(this.template);
     }
 
-    return this.element;
+    return this._element;
+  }
+
+  // Метод для удаления элемента
+  removeElement() {
+    this._element = null;
   }
 }

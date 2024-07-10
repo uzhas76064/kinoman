@@ -3,17 +3,24 @@ import {createElement} from '../render';
 const createMoviesViewTemplate = () => '<section class="films"></section>';
 
 export default class MoviesView {
-  getTemplate () {
+  // Геттер для шаблона
+  get template() {
     return createMoviesViewTemplate();
   }
 
-  getElement () {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
+  // Геттер для элемента
+  get element() {
+    // Если элемент не существует, создаем его
+    if (!this._element) {
+      this._element = createElement(this.template);
     }
-    return this.element;
+
+    return this._element;
   }
-  removeElement () {
-    this.element = null;
+
+  // Метод для удаления элемента
+  removeElement() {
+    this._element = null;
   }
 }
+
