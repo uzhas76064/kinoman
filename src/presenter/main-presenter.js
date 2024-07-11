@@ -22,14 +22,13 @@ export default class MainPresenter {
     this.moviesContainer.addEventListener('click', (evt) => {
       if (evt.target.matches('.film-card')) {
         this.bodyElement.appendChild(popup.element);
+        this.bodyElement.classList.add('hide-overflow');
         closeButton = document.querySelector('.film-details__close-btn');
-        console.log(closeButton);
       }
 
-      closeButton.addEventListener('click', (evt) => {
-        console.log('1')
+      closeButton.addEventListener('click', () => {
+        this.bodyElement.classList.remove('hide-overflow');
         popup.removeElement();
-        console.log(2)
       });
     });
 
