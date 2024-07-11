@@ -17,6 +17,7 @@ export default class MainPresenter {
 
   #onClosePopup(popup) {
     this.bodyElement.classList.remove('hide-overflow');
+    this.moviesContainer.removeEventListener('click', this.#onClosePopup);
     popup.removeElement();
   }
 
@@ -34,6 +35,7 @@ export default class MainPresenter {
     if(evt.key === 'Escape' || evt.key === 'Esc') {
       evt.preventDefault();
       this.#onClosePopup(popup);
+      document.removeEventListener('keydown', this.#onEscKeyDown);
     }
   }
 
