@@ -56,6 +56,6 @@ export default class MovieCardView {
   // Метод для удаления элемента
   removeElement() {
     this.#element.remove();
-    this.#element = null;
+    // this.#element = null;
   }
 }
