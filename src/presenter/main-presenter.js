@@ -10,6 +10,8 @@ export default class MainPresenter {
   films = new MoviesView();
   moviesContainer = document.querySelector('.films');
   bodyElement = document.querySelector('body');
+  #MOVIES_PER_PORTION = 5;
+  #shownMovies = 0;
 
   #renderMovieCard(mv) {
     render(new MovieCardView(mv), document.querySelector('.films'));
@@ -49,6 +51,28 @@ export default class MainPresenter {
     });
   }
 
+  #renderMovies(movies) {
+    const moviesToShow = movies.slice(this.#shownMovies, this.#shownMovies + this.#MOVIES_PER_PORTION);
+    moviesToShow.forEach((movie) => {
+      this.#renderMovieCard(movie);
+    });
+    this.#shownMovies += moviesToShow.length;
+
+    if (this.#shownMovies < movies.length) {
+      this.#renderShowMoreButton(movies);
+    }
+  }
+
+  #renderShowMoreButton(movies) {
+    const showMoreButton = new ShowMoreView();
+    render(showMoreButton, document.querySelector('.films'));
+
+    showMoreButton.element.addEventListener('click', () => {
+      showMoreButton.removeElement(); // Удаляем кнопку перед рендером новых фильмов
+      this.#renderMovies(movies);
+    });
+  }
+
   // Метод инициализации, принимающий контейнер и модели фильмов и попапа
   init = (container, moviesModel, moviePopupModel) => {
     // Присваиваем переданный контейнер свойству moviesContainer
@@ -69,13 +93,11 @@ export default class MainPresenter {
     render(new SortView(), this.moviesContainer, RenderPosition.AFTERBEGIN);
 
     // Рендерим первые 6 карточек фильмов в контейнер фильмов
-    for (let i = 0; i < 6; i++) {
-      this.#renderMovieCard(this.movies[i]);
-    }
+
+
+    this.#renderMovies(this.movies);
 
     this.#renderMoviePopup(this.popupMovie);
-
-    render(new ShowMoreView(), document.querySelector('.films'));
   };
 }
 
