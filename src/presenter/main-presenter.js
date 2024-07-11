@@ -20,6 +20,15 @@ export default class MainPresenter {
     popup.removeElement();
   }
 
+  #onOpenPopup(popup, evt, closeButton) {
+    if (evt.target.matches('.film-card')) {
+      this.bodyElement.appendChild(popup.element);
+      this.bodyElement.classList.add('hide-overflow');
+      closeButton = document.querySelector('.film-details__close-btn');
+      closeButton.addEventListener('click', () => {this.#onClosePopup(popup);});
+    }
+  }
+
   #onEscKeyDown(popup, evt) {
     evt.preventDefault();
     if(evt.key === 'Escape' || evt.key === 'Esc') {
@@ -33,13 +42,7 @@ export default class MainPresenter {
     let closeButton;
 
     this.moviesContainer.addEventListener('click', (evt) => {
-      if (evt.target.matches('.film-card')) {
-        this.bodyElement.appendChild(popup.element);
-        this.bodyElement.classList.add('hide-overflow');
-        closeButton = document.querySelector('.film-details__close-btn');
-        closeButton.addEventListener('click', () => {this.#onClosePopup(popup);});
-
-      }
+      this.#onOpenPopup(popup, evt, closeButton);
       document.addEventListener('keydown', (e) => {this.#onEscKeyDown(popup, e);});
     });
   }
