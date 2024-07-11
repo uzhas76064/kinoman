@@ -60,6 +60,11 @@ export default class MainPresenter {
 
     if (this.#shownMovies < movies.length) {
       this.#renderShowMoreButton(movies);
+    } else if (movies.length === 0) {
+      const noMoviesMessage = document.createElement('h2');
+      noMoviesMessage.classList.add('films-list__title');
+      noMoviesMessage.textContent = 'There are no movies in our database';
+      this.moviesContainer.appendChild(noMoviesMessage);
     }
   }
 
