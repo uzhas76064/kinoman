@@ -7,12 +7,33 @@ import SortView from '../view/sort-view';
 import MoviePopupView from '../view/movie-popup-view';
 
 export default class MainPresenter {
-  // Создаем экземпляр представления фильмов
   films = new MoviesView();
-  // Находим контейнер для фильмов в DOM
   moviesContainer = document.querySelector('.films');
-  // Находим элемент body в DOM
   bodyElement = document.querySelector('body');
+
+  #renderMovieCard(mv) {
+    render(new MovieCardView(mv), document.querySelector('.films'));
+  }
+
+  #renderMoviePopup(mvInfo) {
+    const popup =  new MoviePopupView(mvInfo);
+    let closeButton;
+
+    this.moviesContainer.addEventListener('click', (evt) => {
+      if (evt.target.matches('.film-card')) {
+        this.bodyElement.appendChild(popup.element);
+        closeButton = document.querySelector('.film-details__close-btn');
+        console.log(closeButton);
+      }
+
+      closeButton.addEventListener('click', (evt) => {
+        console.log('1')
+        popup.removeElement();
+        console.log(2)
+      });
+    });
+
+  }
 
   // Метод инициализации, принимающий контейнер и модели фильмов и попапа
   init = (container, moviesModel, moviePopupModel) => {
@@ -35,11 +56,11 @@ export default class MainPresenter {
 
     // Рендерим первые 6 карточек фильмов в контейнер фильмов
     for (let i = 0; i < 6; i++) {
-      render(new MovieCardView(this.movies[i]), document.querySelector('.films'));
+      this.#renderMovieCard(this.movies[i]);
     }
-    // Рендерим попап фильма в элемент body
-    // render(new MoviePopupView(this.popupMovie), this.bodyElement);
-    // Рендерим кнопку "Показать больше" в контейнер фильмов
+
+    this.#renderMoviePopup(this.popupMovie);
+
     render(new ShowMoreView(), document.querySelector('.films'));
   };
 }
