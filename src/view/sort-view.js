@@ -27,6 +27,7 @@ export default class SortView {
 
   // Метод для удаления элемента
   removeElement() {
-    this._element = null;
+    this.#element.remove();
+    this.#element = null;
   }
 }

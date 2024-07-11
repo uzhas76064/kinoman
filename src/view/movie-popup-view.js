@@ -207,6 +207,7 @@ export default class MoviePopupView {
 
   // Метод для удаления элемента
   removeElement() {
-    this._element = null;
+    this.#element.remove();
+    this.#element = null;
   }
 }

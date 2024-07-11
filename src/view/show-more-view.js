@@ -21,6 +21,7 @@ export default class ShowMoreView {
 
   // Метод для удаления элемента
   removeElement() {
+    this.#element.remove();
     this.#element = null;
   }
 }

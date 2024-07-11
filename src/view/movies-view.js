@@ -21,6 +21,7 @@ export default class MoviesView {
 
   // Метод для удаления элемента
   removeElement() {
+    this.#element.remove();
     this.#element = null;
   }
 }
