@@ -15,6 +15,19 @@ export default class MainPresenter {
     render(new MovieCardView(mv), document.querySelector('.films'));
   }
 
+  #onClosePopup(popup) {
+    this.bodyElement.classList.remove('hide-overflow');
+    popup.removeElement();
+  }
+
+  #onEscKeyDown(popup, evt) {
+    evt.preventDefault();
+    if(evt.key === 'Escape' || evt.key === 'Esc') {
+      evt.preventDefault();
+      this.#onClosePopup(popup);
+    }
+  }
+
   #renderMoviePopup(mvInfo) {
     const popup =  new MoviePopupView(mvInfo);
     let closeButton;
@@ -24,14 +37,11 @@ export default class MainPresenter {
         this.bodyElement.appendChild(popup.element);
         this.bodyElement.classList.add('hide-overflow');
         closeButton = document.querySelector('.film-details__close-btn');
+        closeButton.addEventListener('click', () => {this.#onClosePopup(popup);});
+
       }
-
-      closeButton.addEventListener('click', () => {
-        this.bodyElement.classList.remove('hide-overflow');
-        popup.removeElement();
-      });
+      document.addEventListener('keydown', (e) => {this.#onEscKeyDown(popup, e);});
     });
-
   }
 
   // Метод инициализации, принимающий контейнер и модели фильмов и попапа
