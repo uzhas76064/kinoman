@@ -21,7 +21,7 @@ export default class MainPresenter {
   #onClosePopup(popup) {
     this.bodyElement.classList.remove('hide-overflow');
     this.moviesContainer.removeEventListener('click', this.#onClosePopup);
-    popup.removeElement();
+    remove(popup);
   }
 
   #onOpenPopup(popup, evt, closeButton) {
