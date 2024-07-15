@@ -13,6 +13,7 @@ export default class MainPresenter {
   bodyElement = document.querySelector('body');
   #MOVIES_PER_PORTION = 5;
   #shownMovies = 0;
+  #showMoreButton = new ShowMoreView();
 
   #renderMovieCard(mv) {
     render(new MovieCardView(mv), document.querySelector('.films'));
@@ -70,11 +71,11 @@ export default class MainPresenter {
   }
 
   #renderShowMoreButton(movies) {
-    const showMoreButton = new ShowMoreView();
-    render(showMoreButton, document.querySelector('.films'));
+    render(this.#showMoreButton, document.querySelector('.films'));
 
-    showMoreButton.element.addEventListener('click', () => {
-      remove(showMoreButton) // Удаляем кнопку перед рендером новых фильмов
+    // здесь this ссылается сначала на #renderShowMoreButton, а тот в свою очередь на класс
+    this.#showMoreButton.setClickHandler(() => {
+      remove(this.#showMoreButton); // Удаляем кнопку перед рендером новых фильмов
       this.#renderMovies(movies);
     });
   }
