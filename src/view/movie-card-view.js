@@ -1,4 +1,4 @@
-import {createElement} from '../render';
+import AbstractView from '../framework/view/abstract-view';
 
 const createMovieCardTemplate = (movie) => {
   const {
@@ -33,29 +33,14 @@ const createMovieCardTemplate = (movie) => {
         </article>`);
 };
 
-export default class MovieCardView {
-  #element;
+export default class MovieCardView extends AbstractView{
   constructor(movie) {
+    super();
     this.movie = movie;
   }
 
   // Геттер для шаблона
   get template() {
     return createMovieCardTemplate(this.movie);
-  }
-
-  // Геттер для элемента
-  get element() {
-    // Если элемент не существует, создаем его
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-    return this.#element;
-  }
-
-  // Метод для удаления элемента
-  removeElement() {
-    this.#element.remove();
-    // this.#element = null;
   }
 }

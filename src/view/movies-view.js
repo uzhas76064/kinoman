@@ -1,28 +1,15 @@
-import {createElement} from '../render';
+import AbstractView from '../framework/view/abstract-view';
 
 const createMoviesViewTemplate = () => '<section class="films"></section>';
 
-export default class MoviesView {
-  #element;
+export default class MoviesView extends AbstractView{
+  constructor() {
+    super();
+  }
+
   // Геттер для шаблона
   get template() {
     return createMoviesViewTemplate();
-  }
-
-  // Геттер для элемента
-  get element() {
-    // Если элемент не существует, создаем его
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-
-    return this.#element;
-  }
-
-  // Метод для удаления элемента
-  removeElement() {
-    this.#element.remove();
-    // this.#element = null;
   }
 }
 

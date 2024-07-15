@@ -5,6 +5,7 @@ import MoviesView from '../view/movies-view';
 import FilterView from '../view/filter-view';
 import SortView from '../view/sort-view';
 import MoviePopupView from '../view/movie-popup-view';
+import {remove} from '../framework/render';
 
 export default class MainPresenter {
   films = new MoviesView();
@@ -73,7 +74,7 @@ export default class MainPresenter {
     render(showMoreButton, document.querySelector('.films'));
 
     showMoreButton.element.addEventListener('click', () => {
-      showMoreButton.removeElement(); // Удаляем кнопку перед рендером новых фильмов
+      remove(showMoreButton) // Удаляем кнопку перед рендером новых фильмов
       this.#renderMovies(movies);
     });
   }
@@ -96,8 +97,6 @@ export default class MainPresenter {
     render(new FilterView(), this.moviesContainer, RenderPosition.BEFOREBEGIN);
     // Рендерим представление сортировки внутри контейнера фильмов в начало
     render(new SortView(), this.moviesContainer, RenderPosition.AFTERBEGIN);
-
-    // Рендерим первые 6 карточек фильмов в контейнер фильмов
 
 
     this.#renderMovies(this.movies);

@@ -1,4 +1,4 @@
-import {createElement} from '../render.js';
+import AbstractView from '../framework/view/abstract-view';
 
 const createFiltersTemplate = () => `
  <ul class="sort">
@@ -8,26 +8,13 @@ const createFiltersTemplate = () => `
   </ul>
 `;
 
-export default class SortView {
-  #element;
+export default class SortView extends AbstractView{
+  constructor() {
+    super();
+  }
+
   // Геттер для шаблона
   get template() {
     return createFiltersTemplate();
-  }
-
-  // Геттер для элемента
-  get element() {
-    // Если элемент не существует, создаем его
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-
-    return this.#element;
-  }
-
-  // Метод для удаления элемента
-  removeElement() {
-    this.#element.remove();
-    // this.#element = null;
   }
 }

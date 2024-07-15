@@ -1,4 +1,4 @@
-import {createElement} from '../render';
+import AbstractView from '../framework/view/abstract-view';
 
 const createFilterViewTemplate = () => `<nav class="main-navigation">
     <a href="#all" class="main-navigation__item main-navigation__item--active">All movies</a>
@@ -7,26 +7,14 @@ const createFilterViewTemplate = () => `<nav class="main-navigation">
     <a href="#favorites" class="main-navigation__item">Favorites <span class="main-navigation__item-count">8</span></a>
   </nav>`;
 
-export default class FilterView {
-  #element;
+export default class FilterView extends AbstractView{
+  constructor() {
+    super();
+  }
+
   // Геттер для шаблона
   get template() {
     return createFilterViewTemplate();
-  }
-
-  // Геттер для элемента
-  get element() {
-    // Если элемент не существует, создаем его
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-    return this.#element;
-  }
-
-  // Метод для удаления элемента
-  removeElement() {
-    this.#element.remove();
-    // this.#element = null;
   }
 }
 

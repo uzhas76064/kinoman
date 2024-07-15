@@ -1,7 +1,7 @@
 import {generateComment, generateMovie} from '../mock/mock';
 
 export default class MovieCardModel {
-  #movies = Array.from({length: 0}, generateMovie);
+  #movies = Array.from({length: 22}, generateMovie);
   #comments = Array.from({length: 4}, generateComment);
 
   get movies() {
