@@ -1,4 +1,4 @@
-import {render} from './render.js';
+import {render} from './framework/render';
 import ProfileView from './view/profile-view.js';
 import MainPresenter from './presenter/main-presenter';
 import MovieCardModel from './model/MovieCardModel';

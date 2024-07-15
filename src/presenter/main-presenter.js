@@ -1,4 +1,4 @@
-import {render, RenderPosition} from '../render';
+import {render, RenderPosition} from '../framework/render';
 import MovieCardView from '../view/movie-card-view';
 import ShowMoreView from '../view/show-more-view';
 import MoviesView from '../view/movies-view';

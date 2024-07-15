@@ -1,4 +1,4 @@
-import {createElement} from '../render';
+import {createElement} from '../framework/render';
 
 const createMoviePopupViewTemplate = (popup) => {
   const {title,
