@@ -1,4 +1,4 @@
-import {createElement} from '../framework/render';
+import AbstractView from '../framework/view/abstract-view';
 
 const createMoviePopupViewTemplate = (popup) => {
   const {title,
@@ -184,30 +184,15 @@ const createMoviePopupViewTemplate = (popup) => {
   );
 };
 
-export default class MoviePopupView {
-  #element;
+export default class MoviePopupView extends AbstractView{
+  #popup;
   constructor(popup) {
-    this.popup = popup;
+    super();
+    this.#popup = popup;
   }
 
   // Геттер для шаблона
   get template() {
-    return createMoviePopupViewTemplate(this.popup);
-  }
-
-  // Геттер для элемента
-  get element() {
-    // Если элемент не существует, создаем его
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-
-    return this.#element;
-  }
-
-  // Метод для удаления элемента
-  removeElement() {
-    this.#element.remove();
-    // this.#element = null;
+    return createMoviePopupViewTemplate(this.#popup);
   }
 }
