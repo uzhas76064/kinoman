@@ -16,21 +16,26 @@ export default class MainPresenter {
   #showMoreButton = new ShowMoreView();
 
   #renderMovieCard(mv) {
-    render(new MovieCardView(mv), document.querySelector('.films'));
+    const movieCard = new MovieCardView(mv);
+    const container = document.querySelector('.films');
+
+    render(movieCard, container);
+    movieCard.setOpenPopupHandler(() => {
+      this.#renderMoviePopup(mv);
+    });
   }
 
   #onClosePopup(popup) {
     this.bodyElement.classList.remove('hide-overflow');
-    this.moviesContainer.removeEventListener('click', this.#onClosePopup);
+    // this.moviesContainer.removeEventListener('click', this.#onClosePopup);
     remove(popup);
   }
 
-  #onOpenPopup(popup, evt, closeButton) {
+  #onOpenPopup(popup, evt) {
     if (evt.target.matches('.film-card')) {
       this.bodyElement.appendChild(popup.element);
       this.bodyElement.classList.add('hide-overflow');
-      closeButton = document.querySelector('.film-details__close-btn');
-      closeButton.addEventListener('click', () => {this.#onClosePopup(popup);});
+      popup.setClosePopupHandler(() => {this.#onClosePopup(popup);});
     }
   }
 
@@ -73,7 +78,7 @@ export default class MainPresenter {
   #renderShowMoreButton(movies) {
     render(this.#showMoreButton, document.querySelector('.films'));
 
-    // здесь this ссылается сначала на #renderShowMoreButton, а тот в свою очередь на класс
+    // здесь this ссылается сначала на #renderShowMoreButton
     this.#showMoreButton.setClickHandler(() => {
       remove(this.#showMoreButton); // Удаляем кнопку перед рендером новых фильмов
       this.#renderMovies(movies);
