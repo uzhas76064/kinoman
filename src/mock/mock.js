@@ -219,10 +219,10 @@ const generateMovie = () => ({
     description: generateDescription().slice(0, 50)
   },
   userDetails: {
-    watchlist: false,
-    alreadyWatched: true,
-    watchingDate: null,
-    favorite: false
+    watchlist: Boolean(getRandomInteger(0, 1)),
+    alreadyWatched: Boolean(getRandomInteger(0, 1)),
+    watchingDate: generateDates('01/01/2020', dayjs().valueOf()) || null,
+    favorite: Boolean(getRandomInteger(0, 1))
   }
 });
 
