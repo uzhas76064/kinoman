@@ -51,7 +51,7 @@ export default class MainPresenter {
   #renderMoviePopup(mvInfo) {
     const popup =  new MoviePopupView(mvInfo);
 
-    this.films.setClickHandler((evt) => {
+    this.moviesContainer.addEventListener('click',(evt) => {
       console.log(2)
       this.#onOpenPopup(popup, evt);
       document.addEventListener('keydown', (e) => {this.#onEscKeyDown(popup, e);});
