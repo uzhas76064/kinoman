@@ -20,9 +20,9 @@ export default class MainPresenter {
     const container = document.querySelector('.films');
 
     render(movieCard, container);
-    movieCard.setOpenPopupHandler(() => {
-      this.#renderMoviePopup(mv);
-    });
+    // movieCard.setOpenPopupHandler(() => {
+    //   this.#renderMoviePopup(mv);
+    // });
   }
 
   #onClosePopup(popup) {
@@ -50,10 +50,10 @@ export default class MainPresenter {
 
   #renderMoviePopup(mvInfo) {
     const popup =  new MoviePopupView(mvInfo);
-    let closeButton;
 
-    this.moviesContainer.addEventListener('click', (evt) => {
-      this.#onOpenPopup(popup, evt, closeButton);
+    this.films.setClickHandler((evt) => {
+      console.log(2)
+      this.#onOpenPopup(popup, evt);
       document.addEventListener('keydown', (e) => {this.#onEscKeyDown(popup, e);});
     });
   }
@@ -87,9 +87,7 @@ export default class MainPresenter {
 
   // Метод инициализации, принимающий контейнер и модели фильмов и попапа
   init = (container, moviesModel, moviePopupModel) => {
-    // Присваиваем переданный контейнер свойству moviesContainer
     this.moviesContainer = container;
-    // Сохраняем переданные модели в свойствах класса
     this.moviesModel = moviesModel;
     this.moviePopupModel = moviePopupModel;
     // Получаем список фильмов из модели и сохраняем его в свойство класса
@@ -97,16 +95,11 @@ export default class MainPresenter {
     // Получаем данные для попапа из модели и сохраняем их в свойство класса
     this.popupMovie = this.moviePopupModel.moviePopup;
 
-    // Рендерим представление фильмов в контейнер
     render(new MoviesView(), this.moviesContainer);
-    // Рендерим представление фильтра перед контейнером фильмов
     render(new FilterView(), this.moviesContainer, RenderPosition.BEFOREBEGIN);
-    // Рендерим представление сортировки внутри контейнера фильмов в начало
     render(new SortView(), this.moviesContainer, RenderPosition.AFTERBEGIN);
 
-
     this.#renderMovies(this.movies);
-
     this.#renderMoviePopup(this.popupMovie);
   };
 }
