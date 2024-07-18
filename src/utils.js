@@ -1,4 +1,16 @@
 import dayjs from 'dayjs';
+import {
+  ages,
+  alternativeTitles,
+  countries,
+  descriptions,
+  directors,
+  famousActors,
+  famousWriters, Filters,
+  genres,
+  posters,
+  titles
+} from './const';
 
 const getRandomInteger = (a = 0, b = 1) => {
   const lower = Math.ceil(Math.min(a, b));
@@ -34,78 +46,15 @@ const generateAmountStrings = (list) => {
   return Array.from(selectedElements);
 };
 
-const generateTitle = () => {
-  const titles = [
-    'The dance of life',
-    'The Great Flamarion',
-    'Made For Each other',
-    'Popeye Meets Sindbad',
-    'Sagebrush Trail'];
+const generateTitle = () => titles[generateRandomIndex(titles)];
 
-  return titles[generateRandomIndex(titles)];
-};
+const generatePoster = () => posters[generateRandomIndex(posters)];
 
-const generatePoster = () => {
-  const posters = [
-    './images/posters/the-great-flamarion.jpg',
-    './images/posters/the-dance-of-life.jpg',
-    './images/posters/made-for-each-other.png',
-    './images/posters/popeye-meets-sinbad.png',
-    './images/posters/sagebrush-trail.jpg',
-    './images/posters/santa-claus-conquers-the-martians.jpg',
-    './images/posters/the-man-with-the-golden-arm.jpg'
-  ];
+const generateReleaseCountry = () => countries[generateRandomIndex(countries)];
 
-  return posters[generateRandomIndex(posters)];
-};
+const generateDescription = () => descriptions[generateRandomIndex(descriptions)];
 
-const generateReleaseCountry = () => {
-  const countries = [
-    'USA',
-    'Germany',
-    'Nederland'
-  ];
-
-  return countries[generateRandomIndex(countries)];
-};
-
-const generateDescription = () => {
-  const descriptions = [
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquet varius magna, non porta ligula feugiat eget.',
-    'Aliquam id orci ut lectus varius viverra. Nullam nunc ex, convallis sed finibus eget, sollicitudin eget ante.',
-    'Aliquam erat volutpat'
-  ];
-
-  return descriptions[generateRandomIndex(descriptions)];
-};
-
-const generateGenres = ()=> {
-  const genres = [
-    'Action',
-    'Adventure',
-    'Animation',
-    'Biography',
-    'Comedy',
-    'Crime',
-    'Documentary',
-    'Drama',
-    'Family',
-    'Fantasy',
-    'Film Noir',
-    'History',
-    'Horror',
-    'Musical',
-    'Mystery',
-    'Romance',
-    'Sci-Fi',
-    'Sport',
-    'Thriller',
-    'War',
-    'Western'
-  ];
-
-  return generateAmountStrings(genres);
-};
+const generateGenres = ()=> generateAmountStrings(genres);
 
 const generateDates = (startDate, endDate) => {
   const start = dayjs(startDate, 'DD/MMMM/YYYY').valueOf();
@@ -115,120 +64,27 @@ const generateDates = (startDate, endDate) => {
   return randomDate.format('DD MMMM YYYY');
 };
 
-const generateWriters = () => {
-  const famousWriters = [
-    'Woody Allen',
-    'Quentin Tarantino',
-    'Billy Wilder',
-    'Ingmar Bergman',
-    'Charlie Kaufman',
-    'Francis Ford Coppola',
-    'Stanley Kubrick',
-    'Ethan Coen',
-    'Joel Coen',
-    'Christopher Nolan',
-    'Robert Towne',
-    'Aaron Sorkin',
-    'Paddy Chayefsky',
-    'Eric Roth',
-    'Dalton Trumbo',
-    'Akira Kurosawa',
-    'David Mamet',
-    'Paul Schrader',
-    'John Hughes',
-    'Martin Scorsese'
-  ];
-  return generateAmountStrings(famousWriters);
-};
+const generateWriters = () => generateAmountStrings(famousWriters);
 
-const generateDirector = () => {
-  const directors = [
-    'Alfred Hitchcock',
-    'Stanley Kubrick',
-    'Orson Welles',
-    'Akira Kurosawa',
-    'Federico Fellini',
-    'Ingmar Bergman',
-    'John Ford',
-    'Billy Wilder',
-    'Jean-Luc Godard',
-    'Francis Ford Coppola',
-    'Steven Spielberg',
-    'Martin Scorsese',
-    'François Truffaut',
-    'Sergio Leone',
-    'David Lean',
-    'Luis Buñuel',
-    'Howard Hawks',
-    'Woody Allen',
-    'Roman Polanski',
-    'Robert Altman'
-  ];
+const generateDirector = () => directors[generateRandomIndex(directors)];
 
-  return directors[generateRandomIndex(directors)];
-};
+const generateActors = () => generateAmountStrings(famousActors);
 
-const generateActors = () => {
-  const famousActors = [
-    'Marlon Brando',
-    'James Dean',
-    'Humphrey Bogart',
-    'Cary Grant',
-    'James Stewart',
-    'Clark Gable',
-    'John Wayne',
-    'Henry Fonda',
-    'Paul Newman',
-    'Gregory Peck',
-    'Charlie Chaplin',
-    'Laurence Olivier',
-    'Spencer Tracy',
-    'Gary Cooper',
-    'Orson Welles',
-    'Robert De Niro',
-    'Al Pacino',
-    'Jack Nicholson',
-    'Marlon Brando',
-    'Sidney Poitier'
-  ];
+const generateAgeRating = () => ages[generateRandomIndex(ages)];
 
-  return generateAmountStrings(famousActors);
-};
+const generateAlternativeTitle = () => alternativeTitles[generateRandomIndex(alternativeTitles)];
 
-const generateAgeRating = () => {
-  const ages = ['0+', '6+', '12+', '16+', '18+'];
+const generateFilters = () => {
+  const filters = [];
 
-  return ages[generateRandomIndex(ages)];
-};
+  for (const filter in Filters) {
+    filters.push(Filters[filter].description);
+  }
 
-const generateAlternativeTitle = () => {
-  const alternativeTitles = [
-    'The Don',
-    'The Adventures of Luke Starkiller',
-    'Black Mask',
-    'Schindler\'s Ark',
-    'Everybody Comes to Rick\'s',
-    'The Bates Motel',
-    'American',
-    'Rita Hayworth and Shawshank Redemption',
-    'Tomorrow is Another Day',
-    'The Man Who Would Be King',
-    'The Magical Land of Oz',
-    'McMurphy',
-    'The Silence of the Deep',
-    'The Horror',
-    'Journey Beyond the Stars',
-    'The Singing Heart',
-    'A Boy\'s Life',
-    'The Italian Stallion',
-    'The Bronx Bull',
-    'Wise Guy'
-  ];
-
-  return alternativeTitles[generateRandomIndex(alternativeTitles)];
+  return filters;
 };
 
 export {getRandomInteger, generateRandomFloat, generateRandomIndex, generateAmountStrings,
   generateDates, generateAlternativeTitle, generateDescription, generateDirector,
   generateReleaseCountry, generatePoster, generateGenres, generateWriters, generateAgeRating,
-  generateTitle, generateActors};
+  generateTitle, generateActors, generateFilters};
