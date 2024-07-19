@@ -6,10 +6,11 @@ import FilterView from '../view/filter-view';
 import SortView from '../view/sort-view';
 import MoviePopupView from '../view/movie-popup-view';
 import {remove} from '../framework/render';
+import NoMoviesView from '../view/no-movies-view';
 
 export default class MainPresenter {
   films = new MoviesView();
-  moviesContainer = document.querySelector('.films');
+  moviesContainerElement = null;
   bodyElement = document.querySelector('body');
   #MOVIES_PER_PORTION = 5;
   #shownMovies = 0;
@@ -20,14 +21,11 @@ export default class MainPresenter {
     const container = document.querySelector('.films');
 
     render(movieCard, container);
-    // movieCard.setOpenPopupHandler(() => {
-    //   this.#renderMoviePopup(mv);
-    // });
   }
 
   #onClosePopup(popup) {
     this.bodyElement.classList.remove('hide-overflow');
-    // this.moviesContainer.removeEventListener('click', this.#onClosePopup);
+    this.moviesContainerElement.removeEventListener('click', this.#onClosePopup);
     remove(popup);
   }
 
@@ -52,8 +50,7 @@ export default class MainPresenter {
     const popup =  new MoviePopupView(mvInfo);
 
     //TODO: навесить обработчик на films
-    this.moviesContainer.addEventListener('click',(evt) => {
-      console.log(2)
+    this.films.setClickHandler((evt) => {
       this.#onOpenPopup(popup, evt);
       document.addEventListener('keydown', (e) => {this.#onEscKeyDown(popup, e);});
     });
@@ -69,10 +66,7 @@ export default class MainPresenter {
     if (this.#shownMovies < movies.length) {
       this.#renderShowMoreButton(movies);
     } else if (movies.length === 0) {
-      const noMoviesMessage = document.createElement('h2');
-      noMoviesMessage.classList.add('films-list__title');
-      noMoviesMessage.textContent = 'There are no movies in our database';
-      this.moviesContainer.appendChild(noMoviesMessage);
+      this.moviesContainerElement.appendChild(new NoMoviesView().element);
     }
   }
 
@@ -88,7 +82,7 @@ export default class MainPresenter {
 
   // Метод инициализации, принимающий контейнер и модели фильмов и попапа
   init = (container, moviesModel, moviePopupModel) => {
-    this.moviesContainer = container;
+    this.moviesContainerElement = container;
     this.moviesModel = moviesModel;
     this.moviePopupModel = moviePopupModel;
     // Получаем список фильмов из модели и сохраняем его в свойство класса
@@ -96,9 +90,9 @@ export default class MainPresenter {
     // Получаем данные для попапа из модели и сохраняем их в свойство класса
     this.popupMovie = this.moviePopupModel.moviePopup;
 
-    render(new MoviesView(), this.moviesContainer);
-    render(new FilterView(), this.moviesContainer, RenderPosition.BEFOREBEGIN);
-    render(new SortView(), this.moviesContainer, RenderPosition.AFTERBEGIN);
+    render(this.films, this.moviesContainerElement);
+    render(new FilterView(), this.moviesContainerElement, RenderPosition.BEFOREBEGIN);
+    render(new SortView(), this.moviesContainerElement, RenderPosition.AFTERBEGIN);
 
     this.#renderMovies(this.movies);
     this.#renderMoviePopup(this.popupMovie);
