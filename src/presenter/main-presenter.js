@@ -51,6 +51,7 @@ export default class MainPresenter {
   #renderMoviePopup(mvInfo) {
     const popup =  new MoviePopupView(mvInfo);
 
+    //TODO: навесить обработчик на films
     this.moviesContainer.addEventListener('click',(evt) => {
       console.log(2)
       this.#onOpenPopup(popup, evt);
