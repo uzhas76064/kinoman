@@ -205,4 +205,14 @@ export default class MoviePopupView extends AbstractView{
     evt.preventDefault();
     this._callback.closePopup(evt);
   };
+
+  setEscHandler = (callback) => {
+    this._callback.escClose = callback;
+    document.addEventListener('keydown', this.#escHandler);
+  };
+
+  #escHandler = (evt) => {
+    evt.preventDefault();
+    this._callback.escClose(evt);
+  };
 }

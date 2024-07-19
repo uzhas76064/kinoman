@@ -49,10 +49,9 @@ export default class MainPresenter {
   #renderMoviePopup(mvInfo) {
     const popup =  new MoviePopupView(mvInfo);
 
-    //TODO: навесить обработчик на films
     this.films.setClickHandler((evt) => {
       this.#onOpenPopup(popup, evt);
-      document.addEventListener('keydown', (e) => {this.#onEscKeyDown(popup, e);});
+      popup.setEscHandler((e) => {this.#onEscKeyDown(popup, e);});
     });
   }
 

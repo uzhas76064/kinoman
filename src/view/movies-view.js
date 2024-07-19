@@ -13,15 +13,12 @@ export default class MoviesView extends AbstractView{
   }
 
   setClickHandler = (callback) => {
-    console.log(1)
     this._callback.click = callback;
     this.element.addEventListener('click', this.#onClickHandler);
-    console.log(this.element)
   };
 
-  #onClickHandler = () => {
-    console.log(3)
-    this._callback.click();
+  #onClickHandler = (evt) => {
+    this._callback.click(evt);
   };
 }
 
