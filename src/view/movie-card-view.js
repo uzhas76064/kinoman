@@ -1,4 +1,5 @@
 import AbstractView from '../framework/view/abstract-view';
+import {formatStringToYear} from '../utils';
 
 const createMovieCardTemplate = (movie) => {
   const {
@@ -17,7 +18,7 @@ const createMovieCardTemplate = (movie) => {
             <h3 class="film-card__title">${title}</h3>
             <p class="film-card__rating">${totalRating}</p>
             <p class="film-card__info">
-              <span class="film-card__year">${date}</span>
+              <span class="film-card__year">${formatStringToYear(date)}</span>
               <span class="film-card__duration">${runtime}m</span>
               <span class="film-card__genre">${genre}</span>
             </p>

@@ -1,14 +1,8 @@
-import dayjs from 'dayjs';
 import {
   ages,
-  alternativeTitles,
-  countries,
-  directors,
   famousActors,
   famousWriters, Filters,
-  genres,
-  posters,
-  titles, YearsDuration
+  YearsDuration
 } from './const';
 
 const getRandomInteger = (a = 0, b = 1) => {
@@ -20,11 +14,6 @@ const getRandomInteger = (a = 0, b = 1) => {
 
 const getRandomValue = (items) =>
   items[getRandomInteger(0, items.length - 1)];
-
-const generateRandomFloat = () => {
-  const randomFloat = (Math.random() * 10).toFixed(1);
-  return parseFloat(randomFloat);
-};
 
 const generateRandomIndex = (dataList) =>  getRandomInteger(0, dataList.length - 1);
 
@@ -48,32 +37,11 @@ const generateAmountStrings = (list) => {
   return Array.from(selectedElements);
 };
 
-const generateTitle = () => titles[generateRandomIndex(titles)];
-
-const generatePoster = () => posters[generateRandomIndex(posters)];
-
-const generateReleaseCountry = () => countries[generateRandomIndex(countries)];
-
-
-const generateGenres = ()=> generateAmountStrings(genres);
-
-const generateDates = (startDate, endDate) => {
-  const start = dayjs(startDate, 'DD/MMMM/YYYY').valueOf();
-  const end = dayjs(endDate, 'DD/MMMM/YYYY').valueOf();
-  const randomDate = dayjs(getRandomInteger(start, end));
-
-  return randomDate.format('DD MMMM YYYY');
-};
-
 const generateWriters = () => generateAmountStrings(famousWriters);
-
-const generateDirector = () => directors[generateRandomIndex(directors)];
 
 const generateActors = () => generateAmountStrings(famousActors);
 
 const generateAgeRating = () => ages[generateRandomIndex(ages)];
-
-const generateAlternativeTitle = () => alternativeTitles[generateRandomIndex(alternativeTitles)];
 
 const generateFilters = () => {
   const filters = [];
@@ -119,7 +87,5 @@ export {
   formatMinutesToTime
 };
 
-export {getRandomInteger, generateRandomFloat, generateRandomIndex, generateAmountStrings,
-  generateDates, generateAlternativeTitle, generateDirector,
-  generateReleaseCountry, generatePoster, generateGenres, generateWriters, generateAgeRating,
-  generateTitle, generateActors, generateFilters, getRandomValue, getDate};
+export {getRandomInteger,generateRandomIndex, generateAmountStrings,generateWriters, generateAgeRating,
+  generateActors, generateFilters, getRandomValue, getDate};
