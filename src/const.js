@@ -6,6 +6,8 @@ const FilterType = {
   FAVORITES: 'favorites',
 };
 
+const FILTER_TYPE_ALL_NAME = 'All movies';
+
 const Emojis = [
   'Smile',
   'Sleeping',
@@ -179,4 +181,4 @@ const DateType = {
 
 const comment = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquet varius magna, non porta ligula feugiat eget.';
 
-export {FilterType, DateType, YearsDuration, comment, DaysDuration, surnames, names, Emojis,Runtime,GenreCount, ages, countries, titles, description, directors, genres, posters , famousActors, famousWriters};
+export {FILTER_TYPE_ALL_NAME, FilterType, DateType, YearsDuration, comment, DaysDuration, surnames, names, Emojis,Runtime,GenreCount, ages, countries, titles, description, directors, genres, posters , famousActors, famousWriters};
