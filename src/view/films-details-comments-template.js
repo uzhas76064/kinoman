@@ -1,4 +1,4 @@
-import {formatStringToDateWithTime} from '../utils';
+import {formatStringToDateWithTime} from '../utils/utils';
 
 const createCommentTemplate = ({emotion, comment, author, date}) =>
   `

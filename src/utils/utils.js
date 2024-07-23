@@ -3,7 +3,7 @@ import {
   famousActors,
   famousWriters, Filters,
   YearsDuration
-} from './const';
+} from '../const';
 
 const getRandomInteger = (a = 0, b = 1) => {
   const lower = Math.ceil(Math.min(a, b));
@@ -43,16 +43,6 @@ const generateActors = () => generateAmountStrings(famousActors);
 
 const generateAgeRating = () => ages[generateRandomIndex(ages)];
 
-const generateFilters = () => {
-  const filters = [];
-
-  for (const filter in Filters) {
-    filters.push(Filters[filter].description);
-  }
-
-  return filters;
-};
-
 const getDate = () => {
   const date = new Date();
 
@@ -88,4 +78,4 @@ export {
 };
 
 export {getRandomInteger,generateRandomIndex, generateAmountStrings,generateWriters, generateAgeRating,
-  generateActors, generateFilters, getRandomValue, getDate};
+  generateActors, getRandomValue, getDate};

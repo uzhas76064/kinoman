@@ -3,7 +3,7 @@ import {
   generateAgeRating, generateWriters, getDate, getRandomInteger,
   getRandomValue
 
-} from '../utils';
+} from '../utils/utils';
 import {countries, DateType, description, directors, GenreCount, genres, posters, Runtime, titles} from '../const';
 
 const generateMovie = () => ({

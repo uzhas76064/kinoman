@@ -1,9 +1,9 @@
 // Symbol используется для создания подобия enum
-const Filters = {
-  All: Symbol('All movies'),
-  Watchlist: Symbol('Watchlist'),
-  History: Symbol('History'),
-  Favorites: Symbol('Favorites')
+const FilterType = {
+  ALL: 'all',
+  WATCHLIST: 'watchlist',
+  HISTORY: 'history',
+  FAVORITES: 'favorites',
 };
 
 const Emojis = [
@@ -179,4 +179,4 @@ const DateType = {
 
 const comment = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquet varius magna, non porta ligula feugiat eget.';
 
-export {Filters, DateType, YearsDuration, comment, DaysDuration, surnames, names, Emojis,Runtime,GenreCount, ages, countries, titles, description, directors, genres, posters , famousActors, famousWriters};
+export {FilterType, DateType, YearsDuration, comment, DaysDuration, surnames, names, Emojis,Runtime,GenreCount, ages, countries, titles, description, directors, genres, posters , famousActors, famousWriters};

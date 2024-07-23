@@ -1,8 +1,6 @@
 import AbstractView from '../framework/view/abstract-view';
-import {generateFilters} from '../utils';
 
 const createFilterViewTemplate = () => {
-  const filters = generateFilters();
 
   return (`<nav class="main-navigation">
 <!--    <a href="#all" class="main-navigation__item main-navigation__item&#45;&#45;active">All movies</a>-->

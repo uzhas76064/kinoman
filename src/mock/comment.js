@@ -1,4 +1,4 @@
-import {getRandomInteger, getRandomValue} from '../utils';
+import {getRandomInteger, getRandomValue} from '../utils/utils';
 import {comment, DaysDuration, Emojis, names, surnames} from '../const';
 
 const getDate = () => {

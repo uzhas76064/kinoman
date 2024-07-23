@@ -1,5 +1,5 @@
 import AbstractView from '../framework/view/abstract-view';
-import {formatStringToYear} from '../utils';
+import {formatStringToYear} from '../utils/utils';
 
 const createMovieCardTemplate = (movie) => {
   const {
