@@ -54,7 +54,6 @@ const generatePoster = () => posters[generateRandomIndex(posters)];
 
 const generateReleaseCountry = () => countries[generateRandomIndex(countries)];
 
-const generateDescription = () => descriptions[generateRandomIndex(descriptions)];
 
 const generateGenres = ()=> generateAmountStrings(genres);
 
@@ -96,7 +95,31 @@ const getDate = () => {
   return date.toISOString();
 };
 
+const formatStringToDateWithTime = (date) =>
+  new Date(date).toLocaleString('en-GB');
+
+const formatStringToDate = (date) =>
+  new Date(date).toLocaleString('en-GB', {day: '2-digit', month: 'long', year: 'numeric'});
+
+const formatStringToYear = (date) =>
+  new Date(date).getFullYear();
+
+const formatMinutesToTime = (minutes) => {
+  const MINUTES_PER_HOUR = 60;
+
+  return (minutes < MINUTES_PER_HOUR)
+    ? `${minutes}m`
+    : `${Math.floor(minutes / MINUTES_PER_HOUR)}h ${minutes % MINUTES_PER_HOUR}m`;
+};
+
+export {
+  formatStringToDateWithTime,
+  formatStringToDate,
+  formatStringToYear,
+  formatMinutesToTime
+};
+
 export {getRandomInteger, generateRandomFloat, generateRandomIndex, generateAmountStrings,
-  generateDates, generateAlternativeTitle, generateDescription, generateDirector,
+  generateDates, generateAlternativeTitle, generateDirector,
   generateReleaseCountry, generatePoster, generateGenres, generateWriters, generateAgeRating,
   generateTitle, generateActors, generateFilters, getRandomValue, getDate};

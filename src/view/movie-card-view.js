@@ -43,4 +43,14 @@ export default class MovieCardView extends AbstractView{
   get template() {
     return createMovieCardTemplate(this.movie);
   }
+
+  setCardClickHandler(callback) {
+    this._callback.cardClick = callback;
+    this.element.querySelector('a').addEventListener('click', this.#cardClickHandler);
+  }
+
+  #cardClickHandler = (evt) => {
+    evt.preventDefault();
+    this._callback.cardClick();
+  };
 }
