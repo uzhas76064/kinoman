@@ -172,6 +172,11 @@ const surnames = [
   'Walker'
 ];
 
+const DateType = {
+  FILM_INFO: 'FILM_INFO',
+  USER_DETAILS: 'USER_DETAILS'
+};
+
 const comment = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquet varius magna, non porta ligula feugiat eget.';
 
-export {Filters, YearsDuration, comment, DaysDuration, surnames, names, Emojis,Runtime,GenreCount, ages, countries, titles, description, directors, genres, posters , famousActors, famousWriters};
+export {Filters, DateType, YearsDuration, comment, DaysDuration, surnames, names, Emojis,Runtime,GenreCount, ages, countries, titles, description, directors, genres, posters , famousActors, famousWriters};

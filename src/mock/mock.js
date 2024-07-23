@@ -4,7 +4,7 @@ import {
   getRandomValue
 
 } from '../utils';
-import {countries, description, directors, GenreCount, genres, posters, Runtime, titles} from '../const';
+import {countries, DateType, description, directors, GenreCount, genres, posters, Runtime, titles} from '../const';
 
 const generateMovie = () => ({
   title: getRandomValue(titles),
@@ -28,6 +28,7 @@ const generateFilms = () => {
   const films = Array.from({length: 20}, generateMovie);
 
   let totalCommentsCount = 0;
+  const getWatchingDate = () => getDate(DateType.USER_DETAILS);
 
   return films.map((film, index) => {
     const hasComments = getRandomInteger(0, 1);
@@ -37,6 +38,7 @@ const generateFilms = () => {
       : 0;
 
     totalCommentsCount += filmCommentsCount;
+    const alreadyWatched =  Boolean(getRandomInteger(0, 1));
 
     return {
       id: String(index + 1),
@@ -46,6 +48,11 @@ const generateFilms = () => {
         )
         : [],
       filmInfo: film,
+      userDetails: {
+        watchList: Boolean(getRandomInteger(0, 1)),
+        alreadyWatched: alreadyWatched,
+        watchingDate: alreadyWatched ? getWatchingDate() : null
+      }
     };
   });
 };
