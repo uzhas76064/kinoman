@@ -19,6 +19,9 @@ const getRandomInteger = (a = 0, b = 1) => {
   return Math.floor(lower + Math.random() * (upper - lower + 1));
 };
 
+const getRandomValue = (items) =>
+  items[getRandomInteger(0, items.length - 1)];
+
 const generateRandomFloat = () => {
   const randomFloat = (Math.random() * 10).toFixed(1);
   return parseFloat(randomFloat);
@@ -84,7 +87,17 @@ const generateFilters = () => {
   return filters;
 };
 
+const getDate = () => {
+  const date = new Date();
+
+  date.setFullYear(
+    date.getFullYear() - getRandomInteger(YearsDuration.MIN, YearsDuration.MAX)
+  );
+
+  return date.toISOString();
+};
+
 export {getRandomInteger, generateRandomFloat, generateRandomIndex, generateAmountStrings,
   generateDates, generateAlternativeTitle, generateDescription, generateDirector,
   generateReleaseCountry, generatePoster, generateGenres, generateWriters, generateAgeRating,
-  generateTitle, generateActors, generateFilters};
+  generateTitle, generateActors, generateFilters, getRandomValue, getDate};

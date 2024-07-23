@@ -1,55 +1,53 @@
 import {
-  generateActors, generateAgeRating, generateAlternativeTitle,
-  generateDates, generateDescription, generateDirector, generateGenres, generatePoster,
-  generateRandomFloat,
-  generateReleaseCountry,
-  generateTitle, generateWriters,
-  getRandomInteger
-} from '../utils';
-import dayjs from 'dayjs';
+  generateActors,
+  generateAgeRating, generateWriters, getDate, getRandomInteger,
+  getRandomValue
 
-let movieIdCounter = 1;
-let commentIdCounter = 1;
+} from '../utils';
+import {countries, descriptions, directors, GenreCount, genres, posters, Runtime, titles} from '../const';
 
 const generateMovie = () => ({
-  id: movieIdCounter++, // Уникальный ID для каждого фильма
-  comments: Array.from({length: 4}, (_value, commentIndex) => String(commentIndex + 1 )),
-  filmInfo: {
-    title: generateTitle(),
-    alternativeTitle: generateAlternativeTitle(),
-    totalRating: generateRandomFloat(),
-    poster: generatePoster(),
-    ageRating: generateAgeRating(),
-    director: generateDirector(),
-    writers: generateWriters(),
-    actors: generateActors(),
-    release: {
-      date: generateDates('01/01/1920', '01/01/1989'),
-      releaseCountry: generateReleaseCountry()
-    },
-    runtime: getRandomInteger(77, 187),
-    genre: generateGenres(),
-    description: generateDescription().slice(0, 50)
+  title: getRandomValue(titles),
+  alternativeTitle: getRandomValue(titles),
+  totalRating: generateAgeRating(),
+  poster: getRandomValue(posters),
+  ageRating:generateAgeRating(),
+  director: `${getRandomValue(directors)}}`,
+  writers: generateWriters(),
+  actors: generateActors(),
+  release: {
+    date: getDate(),
+    releaseCountry: getRandomValue(countries)
   },
-  userDetails: {
-    watchlist: Boolean(getRandomInteger(0, 1)),
-    alreadyWatched: Boolean(getRandomInteger(0, 1)),
-    watchingDate: generateDates('01/01/2020', dayjs().valueOf()) || null,
-    favorite: Boolean(getRandomInteger(0, 1))
-  }
+  runtime: getRandomInteger(Runtime.MIN, Runtime.MAX),
+  genre:  Array.from({length: getRandomInteger(GenreCount.MIN, GenreCount.MAX)}, () => getRandomValue(genres)),
+  descriptions
 });
 
-const generateLocalComment = () => ({
-  comment: 'a film that changed my life, a true masterpiece, post-credit scene was just amazing omg.',
-  emotion: 'smile'
-});
+const generateFilms = () => {
+  const films = Array.from({length: 20}, generateMovie);
 
-const generateComment = () => ({
-  id: commentIdCounter++, // Уникальный ID для каждого комментария
-  author: 'Ilya O\'Reilly',
-  comment: 'a film that changed my life, a true masterpiece, post-credit scene was just amazing omg.',
-  date: dayjs().format('DD/MM/YYYY hh:mm'),
-  emotion: 'smile'
-});
+  let totalCommentsCount = 0;
 
-export {generateLocalComment, generateComment, generateMovie};
+  return films.map((film, index) => {
+    const hasComments = getRandomInteger(0, 1);
+
+    const filmCommentsCount = (hasComments)
+      ? getRandomInteger(1, 5)
+      : 0;
+
+    totalCommentsCount += filmCommentsCount;
+
+    return {
+      id: String(index + 1),
+      comments: (hasComments)
+        ? Array.from({length: filmCommentsCount},
+          (_value, commentIndex) => String(totalCommentsCount - commentIndex)
+        )
+        : [],
+      filmInfo: film,
+    };
+  });
+};
+
+export {generateFilms, generateMovie};

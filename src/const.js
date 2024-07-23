@@ -143,6 +143,11 @@ const countries = [
   'Nederland'
 ];
 
+const Runtime = {
+  MIN: 60,
+  MAX: 180
+};
+
 const posters = [
   './images/posters/the-great-flamarion.jpg',
   './images/posters/the-dance-of-life.jpg',
@@ -160,5 +165,11 @@ const titles = [
   'Popeye Meets Sindbad',
   'Sagebrush Trail'];
 
+const GenreCount = {
+  MIN: 1,
+  MAX: 3
+};
 
-export {Filters, Emojis, ages, countries, titles, alternativeTitles, descriptions, directors, genres, posters , famousActors, famousWriters};
+
+
+export {Filters, Emojis,Runtime,GenreCount, ages, countries, titles, alternativeTitles, descriptions, directors, genres, posters , famousActors, famousWriters};
