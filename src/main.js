@@ -1,9 +1,8 @@
 import {render} from './framework/render';
 import ProfileView from './view/profile-view.js';
 import FilmsPresenter from './presenter/films-presenter';
-import MovieCardModel from './model/MovieCardModel';
-import MoviePopupModel from './model/MoviePopupModel';
-import CommentsModel from "./model/comments-model";
+import MovieCardModel from './model/movie-card-model';
+import CommentsModel from './model/comments-model';
 
 const siteMainElement = document.querySelector('.main');
 const headerElement = document.querySelector('.header');
