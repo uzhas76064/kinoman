@@ -3,14 +3,15 @@ import ProfileView from './view/profile-view.js';
 import FilmsPresenter from './presenter/films-presenter';
 import MovieCardModel from './model/MovieCardModel';
 import MoviePopupModel from './model/MoviePopupModel';
+import CommentsModel from "./model/comments-model";
 
 const siteMainElement = document.querySelector('.main');
 const headerElement = document.querySelector('.header');
 
 render(new ProfileView(), headerElement);
 
-const presenter= new FilmsPresenter();
 const movieModel = new MovieCardModel();
-const moviePopupModel = new MoviePopupModel();
+const commentsModel = new CommentsModel(movieModel);
+const presenter= new FilmsPresenter(siteMainElement, movieModel, commentsModel);
 
-presenter.init(siteMainElement, movieModel, moviePopupModel);
+presenter.init();

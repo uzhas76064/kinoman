@@ -34,7 +34,7 @@ export default class FilmsPresenter {
   }
 
   init = () => {
-    this.#films = [...this.#filmsModel.get()];
+    this.#films = [...this.#filmsModel.movies];
 
     this.#renderFilmBoard();
   };
