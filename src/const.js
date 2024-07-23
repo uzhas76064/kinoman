@@ -6,12 +6,12 @@ const Filters = {
   Favorites: Symbol('Favorites')
 };
 
-const Emojis = {
-  Smile: './images/emoji/smile.png',
-  Sleeping: './images/emoji/sleeping.png',
-  Puke: './images/emoji/puke.png',
-  Angry: './images/emoji/angry.png'
-};
+const Emojis = [
+  'Smile',
+  'Sleeping',
+  'Puke',
+  'Angry',
+];
 
 const famousActors = [
   'Marlon Brando',
@@ -170,6 +170,30 @@ const GenreCount = {
   MAX: 3
 };
 
+const DaysDuration = {
+  MIN: 0,
+  MAX: 7
+};
+
+const names = [
+  'Alice',
+  'Ivan',
+  'Sergey',
+  'Dakota',
+  'Nevada',
+  'Fedor'
+];
+
+const surnames = [
+  'Makoveev',
+  'Ivanov',
+  'Romanov',
+  'Lee',
+  'James',
+  'Walker'
+];
+
+const comment = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquet varius magna, non porta ligula feugiat eget.';
 
 
-export {Filters, Emojis,Runtime,GenreCount, ages, countries, titles, alternativeTitles, descriptions, directors, genres, posters , famousActors, famousWriters};
+export {Filters, comment, DaysDuration, surnames, names, Emojis,Runtime,GenreCount, ages, countries, titles, alternativeTitles, descriptions, directors, genres, posters , famousActors, famousWriters};
