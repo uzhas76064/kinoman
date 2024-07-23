@@ -1,14 +1,9 @@
-import {generateComment, generateMovie} from '../mock/mock';
+import {generateFilms} from '../mock/mock';
 
 export default class MovieCardModel {
-  #movies = Array.from({length: 22}, generateMovie);
-  #comments = Array.from({length: 4}, generateComment);
+  #movies = generateFilms();
 
   get movies() {
     return this.#movies;
-  }
-
-  get comments() {
-    return this.#comments;
   }
 }
