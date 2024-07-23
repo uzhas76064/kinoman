@@ -1,4 +1,4 @@
-import {generateFilms} from '../mock/mock';
+import {generateFilms} from '../mock/films';
 
 export default class MovieCardModel {
   #movies = generateFilms();
