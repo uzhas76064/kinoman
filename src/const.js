@@ -59,29 +59,6 @@ const directors = [
   'Robert Altman'
 ];
 
-const alternativeTitles = [
-  'The Don',
-  'The Adventures of Luke Starkiller',
-  'Black Mask',
-  'Schindler\'s Ark',
-  'Everybody Comes to Rick\'s',
-  'The Bates Motel',
-  'American',
-  'Rita Hayworth and Shawshank Redemption',
-  'Tomorrow is Another Day',
-  'The Man Who Would Be King',
-  'The Magical Land of Oz',
-  'McMurphy',
-  'The Silence of the Deep',
-  'The Horror',
-  'Journey Beyond the Stars',
-  'The Singing Heart',
-  'A Boy\'s Life',
-  'The Italian Stallion',
-  'The Bronx Bull',
-  'Wise Guy'
-];
-
 const ages = ['0+', '6+', '12+', '16+', '18+'];
 
 const famousWriters = [
@@ -197,5 +174,4 @@ const surnames = [
 
 const comment = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquet varius magna, non porta ligula feugiat eget.';
 
-
-export {Filters, YearsDuration, comment, DaysDuration, surnames, names, Emojis,Runtime,GenreCount, ages, countries, titles, alternativeTitles, description, directors, genres, posters , famousActors, famousWriters};
+export {Filters, YearsDuration, comment, DaysDuration, surnames, names, Emojis,Runtime,GenreCount, ages, countries, titles, description, directors, genres, posters , famousActors, famousWriters};
