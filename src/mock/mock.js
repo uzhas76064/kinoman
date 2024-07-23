@@ -4,7 +4,7 @@ import {
   getRandomValue
 
 } from '../utils';
-import {countries, descriptions, directors, GenreCount, genres, posters, Runtime, titles} from '../const';
+import {countries, description, directors, GenreCount, genres, posters, Runtime, titles} from '../const';
 
 const generateMovie = () => ({
   title: getRandomValue(titles),
@@ -21,7 +21,7 @@ const generateMovie = () => ({
   },
   runtime: getRandomInteger(Runtime.MIN, Runtime.MAX),
   genre:  Array.from({length: getRandomInteger(GenreCount.MIN, GenreCount.MAX)}, () => getRandomValue(genres)),
-  descriptions
+  description
 });
 
 const generateFilms = () => {

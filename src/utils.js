@@ -3,13 +3,12 @@ import {
   ages,
   alternativeTitles,
   countries,
-  descriptions,
   directors,
   famousActors,
   famousWriters, Filters,
   genres,
   posters,
-  titles
+  titles, YearsDuration
 } from './const';
 
 const getRandomInteger = (a = 0, b = 1) => {

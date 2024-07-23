@@ -131,11 +131,8 @@ const genres = [
   'Western'
 ];
 
-const descriptions = [
-  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquet varius magna, non porta ligula feugiat eget.',
-  'Aliquam id orci ut lectus varius viverra. Nullam nunc ex, convallis sed finibus eget, sollicitudin eget ante.',
-  'Aliquam erat volutpat'
-];
+const description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquet varius magna, non porta ligula feugiat eget. Fusce tristique felis at fermentum pharetra.';
+
 
 const countries = [
   'USA',
@@ -175,6 +172,11 @@ const DaysDuration = {
   MAX: 7
 };
 
+const YearsDuration = {
+  MIN: 5,
+  MAX: 10
+};
+
 const names = [
   'Alice',
   'Ivan',
@@ -196,4 +198,4 @@ const surnames = [
 const comment = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquet varius magna, non porta ligula feugiat eget.';
 
 
-export {Filters, comment, DaysDuration, surnames, names, Emojis,Runtime,GenreCount, ages, countries, titles, alternativeTitles, descriptions, directors, genres, posters , famousActors, famousWriters};
+export {Filters, YearsDuration, comment, DaysDuration, surnames, names, Emojis,Runtime,GenreCount, ages, countries, titles, alternativeTitles, description, directors, genres, posters , famousActors, famousWriters};
