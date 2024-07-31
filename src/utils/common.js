@@ -1,7 +1,7 @@
 import {
   ages,
   famousActors,
-  famousWriters, Filters,
+  famousWriters,
   YearsDuration
 } from '../const';
 
