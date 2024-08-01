@@ -51,7 +51,8 @@ const generateFilms = () => {
       userDetails: {
         watchList: Boolean(getRandomInteger(0, 1)),
         alreadyWatched: alreadyWatched,
-        watchingDate: alreadyWatched ? getWatchingDate() : null
+        watchingDate: alreadyWatched ? getWatchingDate() : null,
+        favorite: Boolean(getRandomInteger(0, 1))
       }
     };
   });

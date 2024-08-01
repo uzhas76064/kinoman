@@ -26,15 +26,9 @@ export default class FilmCardPresenter {
       this.#clickCardHandler(this.#film);
       document.addEventListener('keydown', this.#escKeyHandler);
     })
-    this.#filmCardComponent.setAddToWatchListHandler(() => {
-      console.log('added')
-    })
-    this.#filmCardComponent.setWatchedHandler(() => {
-      console.log('watched')
-    })
-    this.#filmCardComponent.setFavoriteHandler(() => {
-      console.log('favorite')
-    })
+    this.#filmCardComponent.setAddToWatchListHandler(this.#onAddToWatchList);
+    this.#filmCardComponent.setWatchedHandler(this.#onSetWatched);
+    this.#filmCardComponent.setFavoriteHandler(this.#onSetFavorite);
 
     if (prevFilmComponent === null) {
       render(this.#filmCardComponent, this.#container.element);
@@ -42,9 +36,43 @@ export default class FilmCardPresenter {
     }
 
     replace(this.#filmCardComponent, prevFilmComponent);
+
+    remove(prevFilmComponent);
   }
 
   destroy = () => {
     remove(this.#filmCardComponent);
+  }
+
+  #onAddToWatchList = () => {
+    console.log('watchlist')
+    this.#changeData({
+      ...this.#film,
+      userDetails: {
+        ...this.#film.userDetails,
+        watchList: !this.#film.userDetails.watchList,
+      }
+    })
+  }
+
+  #onSetWatched = () => {
+    this.#changeData({
+      ...this.#film,
+      userDetails: {
+        ...this.#film.userDetails,
+        alreadyWatched: !this.#film.userDetails.alreadyWatched,
+
+      }
+    })
+  }
+
+  #onSetFavorite = () => {
+    this.#changeData({
+      ...this.#film,
+      userDetails: {
+        ...this.#film.userDetails,
+        favorite: !this.#film.userDetails.favorite,
+      }
+    })
   }
 }
