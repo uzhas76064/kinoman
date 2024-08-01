@@ -1,14 +1,11 @@
 import {render} from '../framework/render';
-import MovieCardView from '../view/movie-card-view';
 import ShowMoreView from '../view/show-more-view';
 import MoviesView from '../view/movies-view';
 import SortView from '../view/sort-view';
-import MoviePopupView from '../view/movie-popup-view';
 import {remove} from '../framework/render';
 import NoMoviesView from '../view/no-movies-view';
 import FilmListContainerView from '../view/films-list-container-view';
 import FilmListView from '../view/film-list-view';
-import FilmCardView from "./film-card-presenter";
 import FilmCardPresenter from "./film-card-presenter";
 import {updateItem} from "../utils/common";
 import FilmDetailsPresenter from "./film-details-presenter";
@@ -32,7 +29,6 @@ export default class FilmsPresenter {
   #FILM_COUNT_PER_STEP = 5;
 
   #renderedFilmCount = this.#FILM_COUNT_PER_STEP;
-  #filmCardComponent;
 
   constructor(container, filmsModel, commentsModel) {
     this.#container = container;
