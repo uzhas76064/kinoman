@@ -1,4 +1,4 @@
-import MovieCardView from "../view/movie-card-view";
+import FilmCardView from "../view/film-card-view";
 import {render, replace, remove} from '../framework/render.js';
 
 export default class FilmCardPresenter {
@@ -20,7 +20,7 @@ export default class FilmCardPresenter {
     this.#film = film;
 
     const prevFilmComponent = this.#filmCardComponent;
-    this.#filmCardComponent = new MovieCardView(this.#film);
+    this.#filmCardComponent = new FilmCardView(this.#film);
 
     this.#filmCardComponent.setCardClickHandler(() => {
       this.#clickCardHandler(this.#film);

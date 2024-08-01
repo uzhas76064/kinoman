@@ -1,6 +1,6 @@
 import {render} from '../framework/render';
 import ShowMoreView from '../view/show-more-view';
-import MoviesView from '../view/movies-view';
+import FilmsView from '../view/films-view';
 import SortView from '../view/sort-view';
 import {remove} from '../framework/render';
 import NoMoviesView from '../view/no-movies-view';
@@ -12,7 +12,7 @@ import FilmDetailsPresenter from "./film-details-presenter";
 
 export default class FilmsPresenter {
   #sortComponent = new SortView();
-  #filmsComponent = new MoviesView();
+  #filmsComponent = new FilmsView();
   #filmListComponent = new FilmListView();
   #filmListContainerComponent = new FilmListContainerView();
   #filmButtonMoreComponent = new ShowMoreView();
