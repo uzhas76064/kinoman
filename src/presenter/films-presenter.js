@@ -11,6 +11,7 @@ import FilmListView from '../view/film-list-view';
 import FilmCardView from "./film-card-presenter";
 import FilmCardPresenter from "./film-card-presenter";
 import {updateItem} from "../utils/common";
+import FilmDetailsPresenter from "./film-details-presenter";
 
 export default class FilmsPresenter {
   #sortComponent = new SortView();
@@ -65,27 +66,40 @@ export default class FilmsPresenter {
     this.#filmCardPresenter.set(film.id, filmCardPresenter);
   }
 
-  #renderFilmDetails(film) {
-    const comments = [...this.#commentsModel.get(film)];
+  #renderFilmDetails() {
+    const comments = [...this.#commentsModel.get(this.#selectedFilm)];
 
-    this.#filmDetailsComponent = new MoviePopupView(film, comments);
+    if (!this.#filmDetailsPresenter) {
+      this.#filmDetailsPresenter = new FilmDetailsPresenter(
+        this.#container,
+        this.#filmChangeHandler,
+        this.#removeFilmDetailsComponent,
+        this.#onEscKeyDown);
+    }
 
-    this.#filmDetailsComponent.setCloseBtnClickHandler(() => {
-      this.#removeFilmDetailsComponent();
-      document.removeEventListener('keydown', this.#onEscKeyDown);
-    });
-
-    render(this.#filmDetailsComponent, this.#container.parentElement);
+    this.#filmDetailsPresenter.init(this.#selectedFilm, comments);
   }
 
   #addFilmDetailsComponent = (film) => {
-    this.#renderFilmDetails(film);
+    if (this.#selectedFilm && this.#selectedFilm.id === film.id) {
+      return;
+    }
+
+    if (this.#selectedFilm && this.#selectedFilm.id !== film.id) {
+      this.#removeFilmDetailsComponent();
+    }
+
+    this.#selectedFilm = film;
+    this.#renderFilmDetails();
+
     document.body.classList.add('hide-overflow');
   };
 
   #removeFilmDetailsComponent = () => {
     remove(this.#filmDetailsComponent);
-    this.#filmDetailsComponent = null;
+    this.#filmDetailsPresenter.destroy();
+    this.#filmDetailsPresenter = null;
+    this.#selectedFilm = null;
     document.body.classList.remove('hide-overflow');
   };
 
