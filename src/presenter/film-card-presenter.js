@@ -27,7 +27,12 @@ export default class FilmCardPresenter {
       document.addEventListener('keydown', this.#escKeyHandler);
     })
 
-    render(this.#filmCardComponent, this.#container.element);
+    if (prevFilmComponent === null) {
+      render(this.#filmCardComponent, this.#container.element);
+      return;
+    }
+
+    replace(this.#filmCardComponent, prevFilmComponent);
   }
 
   destroy = () => {
