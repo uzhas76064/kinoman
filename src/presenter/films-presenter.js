@@ -1,14 +1,16 @@
-import {render, RenderPosition} from '../framework/render';
+import {render} from '../framework/render';
 import MovieCardView from '../view/movie-card-view';
 import ShowMoreView from '../view/show-more-view';
 import MoviesView from '../view/movies-view';
-import FilterView from '../view/filter-view';
 import SortView from '../view/sort-view';
 import MoviePopupView from '../view/movie-popup-view';
 import {remove} from '../framework/render';
 import NoMoviesView from '../view/no-movies-view';
 import FilmListContainerView from '../view/films-list-container-view';
 import FilmListView from '../view/film-list-view';
+import FilmCardView from "./film-card-presenter";
+import FilmCardPresenter from "./film-card-presenter";
+import {updateItem} from "../utils/common";
 
 export default class FilmsPresenter {
   #sortComponent = new SortView();
@@ -17,6 +19,9 @@ export default class FilmsPresenter {
   #filmListContainerComponent = new FilmListContainerView();
   #filmButtonMoreComponent = new ShowMoreView();
   #filmDetailsComponent = null;
+  #filmCardPresenter = new Map();
+  #filmDetailsPresenter = null;
+  #selectedFilm = null;
 
   #container = null;
   #filmsModel = null;
@@ -26,6 +31,7 @@ export default class FilmsPresenter {
   #FILM_COUNT_PER_STEP = 5;
 
   #renderedFilmCount = this.#FILM_COUNT_PER_STEP;
+  #filmCardComponent;
 
   constructor(container, filmsModel, commentsModel) {
     this.#container = container;
@@ -39,15 +45,24 @@ export default class FilmsPresenter {
     this.#renderFilmBoard();
   };
 
+  #filmChangeHandler = (updateFilm) => {
+    this.#films = updateItem(this.#films, updateFilm);
+    this.#filmCardPresenter.get(updateFilm.id).init(updateFilm);
+
+    if (this.#filmDetailsPresenter && this.#selectedFilm === updateFilm.id) {
+      this.#selectedFilm = updateFilm;
+      this.#renderFilmDetails();
+    }
+  }
+
   #renderFilm(film, container) {
-    const filmCardComponent = new MovieCardView(film);
+    const filmCardPresenter = new FilmCardPresenter(container,
+      this.#filmChangeHandler,
+      this.#addFilmDetailsComponent,
+      this.#onEscKeyDown);
 
-    filmCardComponent.setCardClickHandler(() => {
-      this.#addFilmDetailsComponent(film);
-      document.addEventListener('keydown', this.#onEscKeyDown);
-    });
-
-    render(filmCardComponent, container.element);
+    filmCardPresenter.init(film);
+    this.#filmCardPresenter.set(film.id, filmCardPresenter);
   }
 
   #renderFilmDetails(film) {
