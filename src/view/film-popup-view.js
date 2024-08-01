@@ -49,9 +49,50 @@ export default class FilmDetailsView extends AbstractView {
     return createFilmDetailsTemplate(this.#film, this.#comments);
   }
 
+  setAddToWatchListHandler = (callback) => {
+    this._callback.addToWatchList = callback;
+    this.element.querySelector('.film-details__control-button--watchlist')
+      .addEventListener('click', this.#addToWatchListHandler)
+  }
+
+  setWatchedHandler = (callback) => {
+    this._callback.markAsWatched = callback;
+    this.element.querySelector('.film-details__control-button--watched')
+      .addEventListener('click', this.#watchedHandler);
+  }
+
+  setFavoriteHandler = (callback) => {
+    this._callback.markAsFavorite = callback;
+    this.element.querySelector('.film-details__control-button--favorite')
+      .addEventListener('click', this.#favoriteHandler);
+  }
+
+  #favoriteHandler = (evt) => {
+    evt.preventDefault();
+    this.element.querySelector('.film-details__control-button--favorite')
+      .classList.toggle('film-details__control-button--active');
+    this._callback.markAsFavorite();
+  }
+
+  #watchedHandler = (evt) => {
+    evt.preventDefault();
+    this.element.querySelector('.film-details__control-button--watched')
+      .classList.toggle('film-details__control-button--active');
+    this._callback.markAsWatched();
+  }
+
+  #addToWatchListHandler = (evt) => {
+    evt.preventDefault();
+    this.element.querySelector('.film-details__control-button--watchlist')
+      .classList.toggle('film-details__control-button--active');
+    this._callback.addToWatchList();
+  }
+
+
   setCloseBtnClickHandler(callback) {
     this._callback.closeBtnClick = callback;
-    this.element.querySelector('.film-details__close-btn').addEventListener('click', this.#closeBtnClickHandler);
+    this.element.querySelector('.film-details__close-btn')
+      .addEventListener('click', this.#closeBtnClickHandler);
   }
 
   #closeBtnClickHandler = (evt) => {
