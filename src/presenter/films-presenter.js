@@ -1,7 +1,6 @@
 import {render} from '../framework/render';
 import ShowMoreView from '../view/show-more-view';
 import FilmsView from '../view/films-view';
-import SortView from '../view/sort-view';
 import {remove} from '../framework/render';
 import NoMoviesView from '../view/no-movies-view';
 import FilmListContainerView from '../view/films-list-container-view';
@@ -11,7 +10,6 @@ import {updateItem} from "../utils/common";
 import FilmDetailsPresenter from "./film-details-presenter";
 
 export default class FilmsPresenter {
-  #sortComponent = new SortView();
   #filmsComponent = new FilmsView();
   #filmListComponent = new FilmListView();
   #filmListContainerComponent = new FilmListContainerView();
@@ -128,7 +126,6 @@ export default class FilmsPresenter {
       return;
     }
 
-    render(this.#sortComponent, this.#container);
     render(this.#filmsComponent, this.#container);
     render(this.#filmListComponent, this.#filmsComponent.element);
     render(this.#filmListContainerComponent, this.#filmListComponent.element);
