@@ -26,6 +26,15 @@ export default class FilmCardPresenter {
       this.#clickCardHandler(this.#film);
       document.addEventListener('keydown', this.#escKeyHandler);
     })
+    this.#filmCardComponent.setAddToWatchListHandler(() => {
+      console.log('added')
+    })
+    this.#filmCardComponent.setWatchedHandler(() => {
+      console.log('watched')
+    })
+    this.#filmCardComponent.setFavoriteHandler(() => {
+      console.log('favorite')
+    })
 
     if (prevFilmComponent === null) {
       render(this.#filmCardComponent, this.#container.element);
