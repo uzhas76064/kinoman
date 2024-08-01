@@ -27,6 +27,9 @@ export default class FilmDetailsPresenter {
       this.#closeBtnClickHandler();
       document.removeEventListener('keydown', this.#escKeyHandler);
     });
+    this.#filmDetailsComponent.setAddToWatchListHandler(() => {console.log('watchlist')})
+    this.#filmDetailsComponent.setWatchedHandler(() => {console.log('watched')})
+    this.#filmDetailsComponent.setFavoriteHandler(() => {console.log('favorite')})
 
     render(this.#filmDetailsComponent, this.#container);
   }
