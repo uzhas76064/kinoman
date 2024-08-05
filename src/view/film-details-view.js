@@ -1,8 +1,8 @@
-import AbstractView from '../framework/view/abstract-view';
 import {createFilmDetailsCommentsTemplate} from './films-details-comments-template';
 import {createFilmDetailsFormTemplate} from './films-details-form-template';
 import {createFilmDetailsInfoTemplate} from './films-details-info-template';
 import {createFilmDetailsControlsTemplate} from './films-details-controls-template';
+import AbstractStatefulView from "../framework/view/abstract-stateful-view";
 
 const createFilmDetailsTemplate = ({filmInfo, userDetails}, comments) =>
   `
@@ -35,7 +35,7 @@ const createFilmDetailsTemplate = ({filmInfo, userDetails}, comments) =>
     </section>
  `;
 
-export default class FilmDetailsView extends AbstractView {
+export default class FilmDetailsView extends AbstractStatefulView {
   #film = null;
   #comments = null;
 
