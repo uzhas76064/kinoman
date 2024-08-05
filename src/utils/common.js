@@ -4,6 +4,7 @@ import {
   famousWriters,
   YearsDuration
 } from '../const';
+import dayjs from "dayjs";
 
 const getRandomInteger = (a = 0, b = 1) => {
   const lower = Math.ceil(Math.min(a, b));
@@ -67,6 +68,9 @@ const getDate = () => {
   return date.toISOString();
 };
 
+const formatCommentDate = (date) =>
+  dayjs(date).format('YYYY/MM/DD hh:mm');
+
 const formatStringToDateWithTime = (date) =>
   new Date(date).toLocaleString('en-GB');
 
@@ -91,5 +95,5 @@ export {
   formatMinutesToTime
 };
 
-export {getRandomInteger,updateItem, generateRandomIndex, generateAmountStrings,generateWriters, generateAgeRating,
+export {formatCommentDate, getRandomInteger,updateItem, generateRandomIndex, generateAmountStrings,generateWriters, generateAgeRating,
   generateActors, getRandomValue, getDate};

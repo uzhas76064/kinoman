@@ -1,4 +1,5 @@
-import {formatStringToDateWithTime} from '../utils/common';
+import {formatCommentDate, formatStringToDateWithTime} from '../utils/common';
+import dayjs from "dayjs";
 
 const createCommentTemplate = ({emotion, comment, author, date}) =>
   `
@@ -10,7 +11,7 @@ const createCommentTemplate = ({emotion, comment, author, date}) =>
         <p class="film-details__comment-text">${comment}</p>
         <p class="film-details__comment-info">
           <span class="film-details__comment-author">${author}</span>
-          <span class="film-details__comment-day">${formatStringToDateWithTime(date)}</span>
+          <span class="film-details__comment-day">${formatCommentDate(date)}</span>
           <button class="film-details__comment-delete">Delete</button>
         </p>
       </div>
