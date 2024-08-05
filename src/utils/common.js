@@ -5,6 +5,7 @@ import {
   YearsDuration
 } from '../const';
 import dayjs from "dayjs";
+import relativeTime  from 'dayjs/plugin/relativeTime'
 
 const getRandomInteger = (a = 0, b = 1) => {
   const lower = Math.ceil(Math.min(a, b));
@@ -68,8 +69,10 @@ const getDate = () => {
   return date.toISOString();
 };
 
-const formatCommentDate = (date) =>
-  dayjs(date).format('YYYY/MM/DD hh:mm');
+const formatCommentDate = (date) => {
+  dayjs.extend(relativeTime);
+  return dayjs(date).fromNow()
+}
 
 const formatStringToDateWithTime = (date) =>
   new Date(date).toLocaleString('en-GB');
