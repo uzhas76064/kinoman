@@ -1,5 +1,5 @@
 import {remove, render, replace} from "../framework/render";
-import FilmDetailsView from "../view/film-popup-view";
+import FilmDetailsView from "../view/film-details-view";
 
 export default class FilmDetailsPresenter {
   #container = null;
