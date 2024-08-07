@@ -11,11 +11,11 @@ const headerElement = document.querySelector('.header');
 
 render(new ProfileView(), headerElement);
 
-const movieModel = new FilmsModel();
-const filters = generateFilter(movieModel.movies);
+const filmsModel = new FilmsModel();
+const filters = generateFilter(filmsModel.movies);
 
 render(new FilterView(filters), siteMainElement);
-const commentsModel = new CommentsModel(movieModel);
-const presenter= new FilmsPresenter(siteMainElement, movieModel, commentsModel);
+const commentsModel = new CommentsModel(filmsModel);
+const presenter= new FilmsPresenter(siteMainElement, filmsModel, commentsModel);
 
 presenter.init();

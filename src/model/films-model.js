@@ -2,9 +2,9 @@ import {generateFilms} from '../mock/films';
 import Observable from "../framework/observable";
 
 export default class FilmsModel extends Observable{
-  #movies = generateFilms();
+  #films = generateFilms();
 
   get movies() {
-    return this.#movies;
+    return this.#films;
   }
 }
