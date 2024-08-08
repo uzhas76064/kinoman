@@ -40,6 +40,23 @@ export default class FilmsPresenter {
     this.#renderFilmBoard();
   };
 
+  get films() {
+    return this.#films;
+  }
+
+  #renderFilmsPortion = () => {
+    this.#films
+      .slice(0, Math.min(this.#films.length, this.#FILM_COUNT_PER_STEP))
+      .forEach((film) =>
+        this.#renderFilm(film, this.#filmListContainerComponent)
+      );
+
+    if (this.#films.length > this.#FILM_COUNT_PER_STEP) {
+      render(this.#filmButtonMoreComponent, this.#filmListComponent.element);
+      this.#filmButtonMoreComponent.setClickHandler(() => this.#filmButtonMoreClickHandler());
+    }
+  }
+
   #filmChangeHandler = (updateFilm) => {
     this.#films = updateItem(this.#films, updateFilm);
     this.#filmCardPresenter.get(updateFilm.id).init(updateFilm);
@@ -129,17 +146,7 @@ export default class FilmsPresenter {
     render(this.#filmsComponent, this.#container);
     render(this.#filmListComponent, this.#filmsComponent.element);
     render(this.#filmListContainerComponent, this.#filmListComponent.element);
-
-    this.#films
-      .slice(0, Math.min(this.#films.length, this.#FILM_COUNT_PER_STEP))
-      .forEach((film) =>
-        this.#renderFilm(film, this.#filmListContainerComponent)
-      );
-
-    if (this.#films.length > this.#FILM_COUNT_PER_STEP) {
-      render(this.#filmButtonMoreComponent, this.#filmListComponent.element);
-      this.#filmButtonMoreComponent.setClickHandler(() => this.#filmButtonMoreClickHandler());
-    }
+    this.#renderFilmsPortion();
   }
 }
 
