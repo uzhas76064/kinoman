@@ -1,14 +1,13 @@
-import {render} from '../framework/render';
+import {remove, render} from '../framework/render';
 import ShowMoreView from '../view/show-more-view';
 import FilmsView from '../view/films-view';
-import {remove} from '../framework/render';
 import NoMoviesView from '../view/no-movies-view';
 import FilmListContainerView from '../view/films-list-container-view';
 import FilmListView from '../view/film-list-view';
 import FilmCardPresenter from "./film-card-presenter";
-import {updateItem} from "../utils/common";
 import FilmDetailsPresenter from "./film-details-presenter";
 import {FilterType, UpdateType, UserAction} from "../const";
+import {filter} from "../utils/filter";
 
 export default class FilmsPresenter {
   #filmsComponent = new FilmsView();
@@ -19,6 +18,7 @@ export default class FilmsPresenter {
   #filmCardPresenter = new Map();
   #filmDetailsPresenter = null;
   #selectedFilm = null;
+  #filterModel = null;
 
   #container = null;
   #filmsModel = null;
@@ -29,12 +29,14 @@ export default class FilmsPresenter {
 
   #renderedFilmCount = this.#FILM_COUNT_PER_STEP;
 
-  constructor(container, filmsModel, commentsModel) {
+  constructor(container, filmsModel, commentsModel, filterModel) {
     this.#container = container;
     this.#filmsModel = filmsModel;
     this.#commentsModel = commentsModel;
+    this.#filterModel = filterModel;
 
     this.#filmsModel.addObserver(this.#modelEventHandler);
+    this.#filterModel.addObserver(this.#modelEventHandler);
   }
 
   init = () => {
@@ -42,7 +44,16 @@ export default class FilmsPresenter {
   };
 
   get films() {
-    return this.#filmsModel.get();
+    const filterType = this.#filterModel.get();
+    const films = this.#filmsModel.get();
+
+    console.log(filterType)
+    // Проверка наличия функции в объекте filter
+    if (!filter[filterType]) {
+      throw new Error(`Фильтр "${filterType}" не существует в объекте filter`);
+    }
+
+    return filter[filterType](films);
   }
 
   #viewActionHandler = (actionType, updateType, updateFilm, updateComment) => {
@@ -71,6 +82,9 @@ export default class FilmsPresenter {
         if (this.#filmDetailsPresenter && this.#selectedFilm.id === data.id) {
           this.#selectedFilm = data;
           this.#renderFilmDetails();
+        }
+        if (this.#filterModel.get() !== FilterType.ALL) {
+          this.#modelEventHandler(UpdateType.MINOR);
         }
         break;
       case UpdateType.MINOR:
