@@ -35,7 +35,7 @@ export default class FilmsPresenter {
   }
 
   init = () => {
-    this.#films = [...this.#filmsModel.movies];
+    this.#films = [...this.#filmsModel.get()];
 
     this.#renderFilmBoard();
   };
@@ -44,17 +44,26 @@ export default class FilmsPresenter {
     return this.#films;
   }
 
-  #renderFilmsPortion = () => {
-    this.#films
-      .slice(0, Math.min(this.#films.length, this.#FILM_COUNT_PER_STEP))
-      .forEach((film) =>
-        this.#renderFilm(film, this.#filmListContainerComponent)
-      );
+  #renderFilmsList = (films) => {
+    this.#renderFilms(
+      films,
+      this.#filmListContainerComponent
+    );
 
     if (this.#films.length > this.#FILM_COUNT_PER_STEP) {
-      render(this.#filmButtonMoreComponent, this.#filmListComponent.element);
-      this.#filmButtonMoreComponent.setClickHandler(() => this.#filmButtonMoreClickHandler());
+      this.#renderFilmButtonMore(this.#filmsComponent.element);
     }
+  }
+
+  #renderFilms = (films, container) => {
+      films.forEach((film) =>
+        this.#renderFilm(film, container)
+      );
+  }
+
+  #renderFilmButtonMore() {
+    render(this.#filmButtonMoreComponent, this.#filmListComponent.element);
+    this.#filmButtonMoreComponent.setClickHandler(() => this.#filmButtonMoreClickHandler());
   }
 
   #filmChangeHandler = (updateFilm) => {
@@ -138,15 +147,21 @@ export default class FilmsPresenter {
   }
 
   #renderFilmBoard() {
-    if (this.#films.length === 0) {
+    const films = this.films.slice(0, Math.min(this.films.length, this.#FILM_COUNT_PER_STEP))
+
+    if (films.length === 0) {
       render(new NoMoviesView(), this.#container);
       return;
     }
 
-    render(this.#filmsComponent, this.#container);
+    this.#renderFilmsListContainer(this.#container);
+    this.#renderFilmsList(films);
+  }
+
+  #renderFilmsListContainer = (container) => {
+    render(this.#filmsComponent, container);
     render(this.#filmListComponent, this.#filmsComponent.element);
     render(this.#filmListContainerComponent, this.#filmListComponent.element);
-    this.#renderFilmsPortion();
   }
 }
 

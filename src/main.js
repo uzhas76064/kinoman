@@ -12,7 +12,7 @@ const headerElement = document.querySelector('.header');
 render(new ProfileView(), headerElement);
 
 const filmsModel = new FilmsModel();
-const filters = generateFilter(filmsModel.movies);
+const filters = generateFilter(filmsModel.get());
 
 render(new FilterView(filters), siteMainElement);
 const commentsModel = new CommentsModel(filmsModel);
