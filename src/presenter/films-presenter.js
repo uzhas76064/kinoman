@@ -119,16 +119,6 @@ export default class FilmsPresenter {
     this.#filmButtonMoreComponent.setClickHandler(() => this.#filmButtonMoreClickHandler());
   }
 
-  #filmChangeHandler = (updateFilm) => {
-    this.#films = updateItem(this.#films, updateFilm);
-    this.#filmCardPresenter.get(updateFilm.id).init(updateFilm);
-
-    if (this.#filmDetailsPresenter && this.#selectedFilm === updateFilm.id) {
-      this.#selectedFilm = updateFilm;
-      this.#renderFilmDetails();
-    }
-  }
-
   #renderFilm(film, container) {
     const filmCardPresenter = new FilmCardPresenter(
       container,
@@ -153,6 +143,8 @@ export default class FilmsPresenter {
       );
     }
 
+    document.addEventListener('keydown', this.#onCtrlEnterDown);
+
     this.#filmDetailsPresenter.init(this.#selectedFilm, comments);
   }
 
@@ -172,10 +164,12 @@ export default class FilmsPresenter {
   };
 
   #removeFilmDetailsComponent = () => {
-    remove(this.#filmDetailsComponent);
+    document.removeEventListener('keydown', this.#onCtrlEnterDown);
+
     this.#filmDetailsPresenter.destroy();
     this.#filmDetailsPresenter = null;
     this.#selectedFilm = null;
+
     document.body.classList.remove('hide-overflow');
   };
 
@@ -212,6 +206,13 @@ export default class FilmsPresenter {
 
     this.#renderFilmsListContainer(this.#container);
     this.#renderFilmsList(films);
+  }
+
+  #onCtrlEnterDown = (evt) => {
+    if (evt.key === 'Enter' && (evt.metaKey || evt.ctrlKey)) {
+      evt.preventDefault();
+      this.#filmDetailsPresenter.createComment();
+    }
   }
 
   #renderFilmsListContainer = (container) => {

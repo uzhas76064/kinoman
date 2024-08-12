@@ -36,8 +36,6 @@ const createFilmDetailsTemplate = ({filmInfo, userDetails, comment, checkedEmoti
  `;
 
 export default class FilmDetailsView extends AbstractStatefulView {
-  // #film = null;
-  // #comments = null;
 
   constructor(film, comments, viewData, updateViewData) {
     super();
@@ -77,6 +75,32 @@ export default class FilmDetailsView extends AbstractStatefulView {
     comment,
     scrollPosition
   });
+
+  setCommentData = () => {
+    this.#updateViewData();
+  };
+
+  setScrollPosition = () => {
+    this.element.scrollTop = this._state.scrollPosition;
+  };
+
+  #commentDeleteClickHandler = (evt) => {
+    evt.preventDefault();
+    this.#updateViewData();
+    this._callback.commentDeleteClick(evt.target.dataset.commentId);
+  }
+
+  setCommentDeleteClickHandler = (callback) => {
+    const commentDeleteElements = this.element.querySelectorAll('.film-details__comment-delete');
+
+    if (commentDeleteElements) {
+      this._callback.commentDeleteClick = callback;
+      commentDeleteElements.forEach(
+        (element) =>
+          element.addEventListener('click', this.#commentDeleteClickHandler)
+      );
+    }
+  }
 
   #emotionClickHandler = (evt) => {
     evt.preventDefault();
@@ -144,7 +168,6 @@ export default class FilmDetailsView extends AbstractStatefulView {
       .classList.toggle('film-details__control-button--active');
     this._callback.addToWatchList();
   }
-
 
   setCloseBtnClickHandler(callback) {
     this._callback.closeBtnClick = callback;
