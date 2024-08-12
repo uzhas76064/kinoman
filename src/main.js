@@ -3,7 +3,7 @@ import ProfileView from './view/profile-view.js';
 import FilmsPresenter from './presenter/films-presenter';
 import FilmsModel from './model/films-model';
 import CommentsModel from './model/comments-model';
-import {generateFilter} from './mock/filter';
+import {generateFilter} from './mock/filters';
 import FilterView from './view/filter-view';
 
 const siteMainElement = document.querySelector('.main');

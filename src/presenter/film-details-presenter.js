@@ -61,6 +61,8 @@ export default class FilmDetailsPresenter {
 
     replace(this.#filmDetailsComponent, prevFilmDetailsComponent);
 
+    this.#filmDetailsComponent.setScrollPosition();
+
     remove(prevFilmDetailsComponent);
   }
 

@@ -16,7 +16,6 @@ export default class FilmsPresenter {
   #filmListContainerComponent = new FilmListContainerView();
   #filmButtonMoreComponent = new ShowMoreView();
   #noMoviesComponent = new NoMoviesView();
-  #filmDetailsComponent = null;
   #filmCardPresenter = new Map();
   #filmDetailsPresenter = null;
   #selectedFilm = null;

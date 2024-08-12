@@ -39,10 +39,13 @@ export default class FilmDetailsView extends AbstractStatefulView {
 
   constructor(film, comments, viewData, updateViewData) {
     super();
-    // this.#setInnerHandlers()
-    this._state = this.#convertFilmToState(film, comments);
+    this._state = this.#convertFilmToState(
+      film, comments,
+      viewData.emotion,
+      viewData.comment,
+      viewData.scrollPosition
+    );
     this.updateViewData = updateViewData;
-    this._restoreHandlers();
     this.#setInnerHandlers();
   }
 
