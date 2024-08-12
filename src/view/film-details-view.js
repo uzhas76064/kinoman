@@ -3,6 +3,7 @@ import {createFilmDetailsFormTemplate} from './films-details-form-template';
 import {createFilmDetailsInfoTemplate} from './films-details-info-template';
 import {createFilmDetailsControlsTemplate} from './films-details-controls-template';
 import AbstractStatefulView from "../framework/view/abstract-stateful-view";
+import he from 'he'
 
 const createFilmDetailsTemplate = ({filmInfo, userDetails, comment, checkedEmotion}, comments) =>
   `
@@ -120,7 +121,7 @@ export default class FilmDetailsView extends AbstractStatefulView {
     evt.preventDefault();
     console.log('input')
     this._setState({
-      comment: evt.target.value
+      comment: he.encode(evt.target.value)
     })
   }
 
