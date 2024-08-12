@@ -8,12 +8,14 @@ import FilmListView from '../view/film-list-view';
 import FilmCardPresenter from "./film-card-presenter";
 import {updateItem} from "../utils/common";
 import FilmDetailsPresenter from "./film-details-presenter";
+import {FilterType, UpdateType, UserAction} from "../const";
 
 export default class FilmsPresenter {
   #filmsComponent = new FilmsView();
   #filmListComponent = new FilmListView();
   #filmListContainerComponent = new FilmListContainerView();
   #filmButtonMoreComponent = new ShowMoreView();
+  #noMoviesComponent = new NoMoviesView();
   #filmDetailsComponent = null;
   #filmCardPresenter = new Map();
   #filmDetailsPresenter = null;
@@ -43,6 +45,57 @@ export default class FilmsPresenter {
   get films() {
     return this.#films;
   }
+
+  #viewActionHandler = (actionType, updateType, updateFilm, updateComment) => {
+    switch (actionType) {
+      case UserAction.UPDATE_FILM:
+        this.#filmsModel.update(updateType, updateFilm);
+        break;
+      case UserAction.ADD_COMMENT:
+        this.#commentsModel.add(updateType, updateComment);
+        this.#filmDetailsPresenter.clearLocalCommentViewData();
+        this.#filmsModel.update(updateType, updateFilm);
+        break;
+      case UserAction.DELETE_COMMENT:
+        this.#commentsModel.delete(updateType, updateComment);
+        this.#filmsModel.update(updateType, updateFilm);
+        break;
+    }
+  };
+
+  #modelEventHandler = (updateType, data) => {
+    switch (updateType) {
+      case UpdateType.PATCH:
+        if (this.#filmCardPresenter.get(data.id)) {
+          this.#filmCardPresenter.get(data.id).init(data);
+        }
+        if (this.#filmDetailsPresenter && this.#selectedFilm.id === data.id) {
+          this.#selectedFilm = data;
+          this.#renderFilmDetails();
+        }
+        break;
+      case UpdateType.MINOR:
+        this.#clearFilmBoard();
+        this.#renderFilmBoard();
+        break;
+      case UpdateType.MAJOR:
+        this.#clearFilmBoard({resetRenderedFilmCount: true});
+        this.#renderFilmBoard();
+        break;
+    }
+  };
+
+  #clearFilmBoard = ({resetRenderedFilmCount = false} = {}) => {
+    this.#filmCardPresenter.forEach((presenter) => presenter.destroy());
+    this.#filmCardPresenter.clear();
+
+    remove(this.#noMoviesComponent);
+    remove(this.#filmButtonMoreComponent);
+
+    if (resetRenderedFilmCount) {
+      this.#renderedFilmCount = this.#FILM_COUNT_PER_STEP;
+    }
+  };
 
   #renderFilmsList = (films) => {
     this.#renderFilms(
@@ -77,10 +130,12 @@ export default class FilmsPresenter {
   }
 
   #renderFilm(film, container) {
-    const filmCardPresenter = new FilmCardPresenter(container,
-      this.#filmChangeHandler,
+    const filmCardPresenter = new FilmCardPresenter(
+      container,
+      this.#viewActionHandler,
       this.#addFilmDetailsComponent,
-      this.#onEscKeyDown);
+      this.#onEscKeyDown
+    );
 
     filmCardPresenter.init(film);
     this.#filmCardPresenter.set(film.id, filmCardPresenter);
@@ -91,10 +146,11 @@ export default class FilmsPresenter {
 
     if (!this.#filmDetailsPresenter) {
       this.#filmDetailsPresenter = new FilmDetailsPresenter(
-        this.#container,
-        this.#filmChangeHandler,
+        this.#container.parentNode,
+        this.#viewActionHandler,
         this.#removeFilmDetailsComponent,
-        this.#onEscKeyDown);
+        this.#onEscKeyDown
+      );
     }
 
     this.#filmDetailsPresenter.init(this.#selectedFilm, comments);
@@ -150,7 +206,7 @@ export default class FilmsPresenter {
     const films = this.films.slice(0, Math.min(this.films.length, this.#FILM_COUNT_PER_STEP))
 
     if (films.length === 0) {
-      render(new NoMoviesView(), this.#container);
+      render(this.#noMoviesComponent, this.#container);
       return;
     }
 

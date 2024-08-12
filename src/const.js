@@ -179,6 +179,18 @@ const DateType = {
   USER_DETAILS: 'USER_DETAILS'
 };
 
+const UserAction = {
+  UPDATE_FILM: 'UPDATE_FILM',
+  ADD_COMMENT: 'ADD_COMMENT',
+  DELETE_COMMENT: 'DELETE_COMMENT',
+};
+
+const UpdateType = {
+  PATCH: 'PATCH',
+  MINOR: 'MINOR',
+  MAJOR: 'MAJOR'
+};
+
 const comment = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquet varius magna, non porta ligula feugiat eget.';
 
-export {FILTER_TYPE_ALL_NAME, FilterType, DateType, YearsDuration, comment, DaysDuration, surnames, names, Emojis,Runtime,GenreCount, ages, countries, titles, description, directors, genres, posters , famousActors, famousWriters};
+export {UserAction, UpdateType, FILTER_TYPE_ALL_NAME, FilterType, DateType, YearsDuration, comment, DaysDuration, surnames, names, Emojis,Runtime,GenreCount, ages, countries, titles, description, directors, genres, posters , famousActors, famousWriters};

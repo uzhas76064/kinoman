@@ -23,6 +23,18 @@ export default class FilmDetailsPresenter {
     this.#escKeyHandler = escKeyHandler;
   }
 
+  clearLocalCommentViewData = () => {
+    this.#updateViewData({
+      comment: null,
+      emotion: null,
+      scrollPosition: this.#localCommentViewData.scrollPosition
+    });
+  };
+
+  #updateViewData = (viewData) => {
+    this.#localCommentViewData = {...viewData};
+  };
+
   init = (films, comments) => {
     this.#film = films;
     this.#comments = comments;
