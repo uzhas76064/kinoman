@@ -54,7 +54,9 @@ export default class FilmDetailsView extends AbstractStatefulView {
     this.setWatchedHandler(this._callback.markAsWatched);
     this.setFavoriteHandler(this._callback.markAsFavorite);
     this.setCloseBtnClickHandler(this._callback.closeBtnClick);
+    this.setCommentDeleteClickHandler(this._callback.commentDeleteClick);
     this.#setInnerHandlers();
+    this.setScrollPosition();
   }
 
   get template() {
@@ -167,8 +169,6 @@ export default class FilmDetailsView extends AbstractStatefulView {
   #addToWatchListHandler = (evt) => {
     evt.preventDefault();
     this.#updateViewData();
-    this.element.querySelector('.film-details__control-button--watchlist')
-      .classList.toggle('film-details__control-button--active');
     this._callback.addToWatchList();
   }
 

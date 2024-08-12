@@ -111,12 +111,13 @@ export default class FilmsPresenter {
   };
 
   #renderFilmsList = (films) => {
+    console.log(1)
     this.#renderFilms(
       films,
       this.#filmListContainerComponent
     );
 
-    if (this.#films.length > this.#FILM_COUNT_PER_STEP) {
+    if (this.films.length > this.#FILM_COUNT_PER_STEP) {
       this.#renderFilmButtonMore(this.#filmsComponent.element);
     }
   }
@@ -195,7 +196,7 @@ export default class FilmsPresenter {
   };
 
   #filmButtonMoreClickHandler() {
-    this.#films
+    this.films
       .slice(this.#renderedFilmCount, this.#renderedFilmCount + this.#FILM_COUNT_PER_STEP)
       .forEach((film) => {
         this.#renderFilm(film, this.#filmListContainerComponent);
@@ -203,7 +204,7 @@ export default class FilmsPresenter {
 
     this.#renderedFilmCount += this.#FILM_COUNT_PER_STEP;
 
-    if (this.#renderedFilmCount >= this.#films.length) {
+    if (this.#renderedFilmCount >= this.films.length) {
       this.#filmButtonMoreComponent.element.remove();
       this.#filmButtonMoreComponent.removeElement();
     }

@@ -1,5 +1,6 @@
 import FilmCardView from "../view/film-card-view";
 import {render, replace, remove} from '../framework/render.js';
+import {UpdateType, UserAction} from "../const";
 
 export default class FilmCardPresenter {
   #container = null;
@@ -26,9 +27,9 @@ export default class FilmCardPresenter {
       this.#clickCardHandler(this.#film);
       document.addEventListener('keydown', this.#escKeyHandler);
     })
-    this.#filmCardComponent.setAddToWatchListHandler(this.#onAddToWatchList);
-    this.#filmCardComponent.setWatchedHandler(this.#onSetWatched);
-    this.#filmCardComponent.setFavoriteHandler(this.#onSetFavorite);
+    this.#filmCardComponent.setWatchlistBtnClickHandler(this.#onAddToWatchList);
+    this.#filmCardComponent.setWatchedBtnClickHandler(this.#onSetWatched);
+    this.#filmCardComponent.setFavoriteBtnClickHandler(this.#onSetFavorite);
 
     if (prevFilmComponent === null) {
       render(this.#filmCardComponent, this.#container.element);
@@ -45,34 +46,41 @@ export default class FilmCardPresenter {
   }
 
   #onAddToWatchList = () => {
-    console.log('watchlist')
-    this.#changeData({
-      ...this.#film,
-      userDetails: {
-        ...this.#film.userDetails,
-        watchList: !this.#film.userDetails.watchList,
-      }
-    })
+    this.#changeData(
+      UserAction.UPDATE_FILM,
+      UpdateType.PATCH,
+      {
+        ...this.#film,
+        userDetails: {
+          ...this.#film.userDetails,
+          watchlist: !this.#film.userDetails.watchlist
+        },
+      });
   }
 
   #onSetWatched = () => {
-    this.#changeData({
-      ...this.#film,
-      userDetails: {
-        ...this.#film.userDetails,
-        alreadyWatched: !this.#film.userDetails.alreadyWatched,
-
-      }
-    })
+    this.#changeData(
+      UserAction.UPDATE_FILM,
+      UpdateType.PATCH,
+      {
+        ...this.#film,
+        userDetails: {
+          ...this.#film.userDetails,
+          alreadyWatched: !this.#film.userDetails.alreadyWatched
+        }
+      });
   }
 
   #onSetFavorite = () => {
-    this.#changeData({
-      ...this.#film,
-      userDetails: {
-        ...this.#film.userDetails,
-        favorite: !this.#film.userDetails.favorite,
-      }
-    })
+    this.#changeData(
+      UserAction.UPDATE_FILM,
+      UpdateType.PATCH,
+      {
+        ...this.#film,
+        userDetails: {
+          ...this.#film.userDetails,
+          favorite: !this.#film.userDetails.favorite
+        }
+      });
   }
 }
