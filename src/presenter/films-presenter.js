@@ -37,13 +37,11 @@ export default class FilmsPresenter {
   }
 
   init = () => {
-    this.#films = [...this.#filmsModel.get()];
-
     this.#renderFilmBoard();
   };
 
   get films() {
-    return this.#films;
+    return this.#filmsModel.get();
   }
 
   #viewActionHandler = (actionType, updateType, updateFilm, updateComment) => {
