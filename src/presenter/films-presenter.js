@@ -34,6 +34,8 @@ export default class FilmsPresenter {
     this.#container = container;
     this.#filmsModel = filmsModel;
     this.#commentsModel = commentsModel;
+
+    this.#filmsModel.addObserver(this.#modelEventHandler);
   }
 
   init = () => {
