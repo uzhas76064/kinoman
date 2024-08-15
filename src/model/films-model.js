@@ -1,4 +1,5 @@
 import Observable from "../framework/observable";
+import {UpdateType} from "../const";
 
 export default class FilmsModel extends Observable{
   #filmApiService = null;
@@ -18,6 +19,8 @@ export default class FilmsModel extends Observable{
      this.#films = []
      throw new Error(err)
    }
+
+   this._notify(UpdateType.INIT)
   }
 
   #deleteUnusedProps = (obj) => {

@@ -8,6 +8,7 @@ import FilmCardPresenter from "./film-card-presenter";
 import FilmDetailsPresenter from "./film-details-presenter";
 import {FilterType, UpdateType, UserAction} from "../const";
 import {filter} from "../utils/filter";
+import LoadingView from "../view/loading-view";
 
 export default class FilmsPresenter {
   #filmsComponent = new FilmsView();
@@ -15,6 +16,7 @@ export default class FilmsPresenter {
   #filmListContainerComponent = new FilmListContainerView();
   #filmButtonMoreComponent = new ShowMoreView();
   #noMoviesComponent = new NoMoviesView();
+  #loadingComponent = new LoadingView();
   #filmCardPresenter = new Map();
   #filmDetailsPresenter = null;
   #selectedFilm = null;
@@ -26,6 +28,7 @@ export default class FilmsPresenter {
 
   #films = [];
   #FILM_COUNT_PER_STEP = 5;
+  #isLoading = true;
 
   #renderedFilmCount = this.#FILM_COUNT_PER_STEP;
 
@@ -95,12 +98,22 @@ export default class FilmsPresenter {
         this.#clearFilmBoard({resetRenderedFilmCount: true});
         this.#renderFilmBoard();
         break;
+      case UpdateType.INIT:
+        this.#isLoading = false;
+        remove(this.#loadingComponent);
+        this.#renderFilmBoard();
+        break;
     }
   };
+
+  #renderLoadingView = (container) => {
+    render(this.#loadingComponent, container)
+  }
 
   #clearFilmBoard = ({resetRenderedFilmCount = false} = {}) => {
     this.#filmCardPresenter.forEach((presenter) => presenter.destroy());
     this.#filmCardPresenter.clear();
+
 
     remove(this.#noMoviesComponent);
     remove(this.#filmButtonMoreComponent);
@@ -213,12 +226,18 @@ export default class FilmsPresenter {
   #renderFilmBoard() {
     const films = this.films.slice(0, Math.min(this.films.length, this.#FILM_COUNT_PER_STEP))
 
+    if (this.#isLoading) {
+      this.#renderLoadingView(this.#container);
+      return
+    }
+
     if (films.length === 0) {
       render(this.#noMoviesComponent, this.#container);
       return;
     }
 
     this.#renderFilmsListContainer(this.#container);
+
     this.#renderFilmsList(films);
   }
 
