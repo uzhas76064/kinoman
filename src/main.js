@@ -28,3 +28,4 @@ const filmsPresenter= new FilmsPresenter(siteMainElement, filmsModel, commentsMo
 
 filterPresenter.init();
 filmsPresenter.init();
+filmsModel.init();

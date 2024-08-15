@@ -1,20 +1,23 @@
-import {generateFilms} from '../mock/films';
 import Observable from "../framework/observable";
-import FilmsApiService from "../services/films-api-service";
 
 export default class FilmsModel extends Observable{
   #filmApiService = null;
-  #films = generateFilms();
+  #films = [];
 
   constructor({filmApiService}) {
     super();
     this.#filmApiService = filmApiService;
+  }
 
-    this.#filmApiService.films.then((films) => {
-      console.log(films[0])
-      // console.log(this.#adaptToClient(films[0]))
-      console.log(films.map(this.#adaptToClient))
-    })
+  init = async () => {
+   try {
+     const films = await this.#filmApiService.films;
+     this.#films = films.map(this.#adaptToClient)
+     console.log(this.#films)
+   } catch (err) {
+     this.#films = []
+     throw new Error(err)
+   }
   }
 
   #deleteUnusedProps = (obj) => {

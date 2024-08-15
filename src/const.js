@@ -38,29 +38,6 @@ const famousActors = [
   'Sidney Poitier'
 ];
 
-const directors = [
-  'Alfred Hitchcock',
-  'Stanley Kubrick',
-  'Orson Welles',
-  'Akira Kurosawa',
-  'Federico Fellini',
-  'Ingmar Bergman',
-  'John Ford',
-  'Billy Wilder',
-  'Jean-Luc Godard',
-  'Francis Ford Coppola',
-  'Steven Spielberg',
-  'Martin Scorsese',
-  'François Truffaut',
-  'Sergio Leone',
-  'David Lean',
-  'Luis Buñuel',
-  'Howard Hawks',
-  'Woody Allen',
-  'Roman Polanski',
-  'Robert Altman'
-];
-
 const ages = ['0+', '6+', '12+', '16+', '18+'];
 
 const famousWriters = [
@@ -86,44 +63,6 @@ const famousWriters = [
   'Martin Scorsese'
 ];
 
-const genres = [
-  'Action',
-  'Adventure',
-  'Animation',
-  'Biography',
-  'Comedy',
-  'Crime',
-  'Documentary',
-  'Drama',
-  'Family',
-  'Fantasy',
-  'Film Noir',
-  'History',
-  'Horror',
-  'Musical',
-  'Mystery',
-  'Romance',
-  'Sci-Fi',
-  'Sport',
-  'Thriller',
-  'War',
-  'Western'
-];
-
-const description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquet varius magna, non porta ligula feugiat eget. Fusce tristique felis at fermentum pharetra.';
-
-
-const countries = [
-  'USA',
-  'Germany',
-  'Nederland'
-];
-
-const Runtime = {
-  MIN: 60,
-  MAX: 180
-};
-
 const posters = [
   './images/posters/the-great-flamarion.jpg',
   './images/posters/the-dance-of-life.jpg',
@@ -133,18 +72,6 @@ const posters = [
   './images/posters/santa-claus-conquers-the-martians.jpg',
   './images/posters/the-man-with-the-golden-arm.jpg'
 ];
-
-const titles = [
-  'The dance of life',
-  'The Great Flamarion',
-  'Made For Each other',
-  'Popeye Meets Sindbad',
-  'Sagebrush Trail'];
-
-const GenreCount = {
-  MIN: 1,
-  MAX: 3
-};
 
 const DaysDuration = {
   MIN: 0,
@@ -174,11 +101,6 @@ const surnames = [
   'Walker'
 ];
 
-const DateType = {
-  FILM_INFO: 'FILM_INFO',
-  USER_DETAILS: 'USER_DETAILS'
-};
-
 const UserAction = {
   UPDATE_FILM: 'UPDATE_FILM',
   ADD_COMMENT: 'ADD_COMMENT',
@@ -193,4 +115,4 @@ const UpdateType = {
 
 const comment = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquet varius magna, non porta ligula feugiat eget.';
 
-export {UserAction, UpdateType, FILTER_TYPE_ALL_NAME, FilterType, DateType, YearsDuration, comment, DaysDuration, surnames, names, Emojis,Runtime,GenreCount, ages, countries, titles, description, directors, genres, posters , famousActors, famousWriters};
+export {UserAction, UpdateType, FILTER_TYPE_ALL_NAME, FilterType, YearsDuration, comment, DaysDuration, surnames, names, Emojis, ages, posters , famousActors, famousWriters};
