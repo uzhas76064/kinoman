@@ -17,15 +17,14 @@ const headerElement = document.querySelector('.header');
 
 render(new ProfileView(), headerElement);
 
-const filmsModel = new FilmsModel();
+const filmsModel = new FilmsModel({
+  filmApiService: new FilmsApiService(END_POINT, AUTHORIZATION)
+});
 const filterModel = new FilterModel();
 const commentsModel = new CommentsModel(filmsModel);
 
 const filterPresenter = new FilterPresenter(siteMainElement, filmsModel, filterModel);
 const filmsPresenter= new FilmsPresenter(siteMainElement, filmsModel, commentsModel, filterModel);
 
-const filmsApiService = new FilmsApiService(END_POINT, AUTHORIZATION);
-
 filterPresenter.init();
 filmsPresenter.init();
-console.log(filmsApiService.films)

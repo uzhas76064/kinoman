@@ -22,4 +22,11 @@ export default class FilmsApiService extends ApiService{
 
     return await ApiService.parseResponse(response);
   }
+
+  #adaptToServer = (film) => {
+    const adaptedFilm = {
+      ...film,
+
+    }
+  }
 }
