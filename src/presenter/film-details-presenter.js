@@ -53,7 +53,6 @@ export default class FilmDetailsPresenter {
     this.#filmDetailsComponent.setFavoriteHandler(this.#onSetFavorite)
     this.#filmDetailsComponent.setCommentDeleteClickHandler(this.#commentDeleteClickHandler);
 
-
     if (prevFilmDetailsComponent === null) {
       render(this.#filmDetailsComponent, this.#container);
       return;

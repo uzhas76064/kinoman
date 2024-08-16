@@ -6,6 +6,7 @@ import CommentsModel from './model/comments-model';
 import FilterPresenter from "./presenter/filter-presenter";
 import FilterModel from "./model/filter-model";
 import FilmsApiService from "./services/films-api-service";
+import CommentsApiService from "./services/comments-api-service";
 
 const BASIC_ID = '1ge6sw36fv7';
 
@@ -21,7 +22,7 @@ const filmsModel = new FilmsModel({
   filmApiService: new FilmsApiService(END_POINT, AUTHORIZATION)
 });
 const filterModel = new FilterModel();
-const commentsModel = new CommentsModel(filmsModel);
+const commentsModel = new CommentsModel(new CommentsApiService(END_POINT, AUTHORIZATION));
 
 const filterPresenter = new FilterPresenter(siteMainElement, filmsModel, filterModel);
 const filmsPresenter= new FilmsPresenter(siteMainElement, filmsModel, commentsModel, filterModel);

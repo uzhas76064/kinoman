@@ -3,25 +3,17 @@ import Observable from "../framework/observable";
 
 export default class CommentsModel extends Observable{
   #filmsModel = null;
+  #commentsApiService = null;
   #allComments = [];
   #comments = [];
 
-  constructor(filmsModel) {
+  constructor(apiService) {
     super();
-    this.#filmsModel = filmsModel;
-    this.#generateAllComments();
+    this.#commentsApiService = apiService;
   }
 
-  #generateAllComments() {
-    this.#allComments = generateComments(this.#filmsModel.get());
-  }
-
-  get = (film) => {
-    this.#comments = film.comments.map((commentId) =>
-      this.#allComments.find((comment) =>
-        comment.id === commentId)
-    );
-
+  get = async (film) => {
+    this.#comments = await this.#commentsApiService.get(film);
     return this.#comments;
   };
 
@@ -36,7 +28,7 @@ export default class CommentsModel extends Observable{
     );
 
     if (index === -1) {
-      throw new Error('Can\'t delete unexisting comment');
+      throw new Error('Can\'t delete not existing comment');
     }
 
     this.#allComments = [

@@ -158,8 +158,10 @@ export default class FilmsPresenter {
     this.#filmCardPresenter.set(film.id, filmCardPresenter);
   }
 
-  #renderFilmDetails() {
-    const comments = [...this.#commentsModel.get(this.#selectedFilm)];
+  #renderFilmDetails = async () => {
+    // TODO: Реализовать обработку ошибки при неудачной загрузке комментариев
+    const comments = await this.#commentsModel.get(this.#selectedFilm)
+    console.log(comments)
 
     if (!this.#filmDetailsPresenter) {
       this.#filmDetailsPresenter = new FilmDetailsPresenter(
