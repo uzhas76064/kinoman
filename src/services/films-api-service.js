@@ -12,51 +12,40 @@ export default class FilmsApiService extends ApiService{
       .then(ApiService.parseResponse);
   }
 
-  #deleteUnusedProps = (obj) => {
-    delete obj.alternativeTitle;
-    delete obj.totalRating;
-    delete obj.ageRating;
-    delete obj.release.releaseCountry;
-    delete obj.user_details.watchList;
-    delete obj.user_details.alreadyWatched;
-    delete obj.user_details.watchingDate;
-  }
-
   updateFilms = async (film) => {
     const response = await this._load({
-      url: `/movies/${film.id}`,
+      url: `movies/${film.id}`,
       method: METHODS.PUT,
-      body: JSON.stringify(FilmsApiService.adaptToServer(film)),
+      body: JSON.stringify(this.#adaptToServer(film)),
       headers: new Headers({'Content-Type': 'application/json'})
     })
 
     return await ApiService.parseResponse(response);
   }
 
-  static adaptToServer = (film) => {
-    const filmInfo = film.filmInfo
-
+  #adaptToServer(film) {
     const adaptedFilm = {
       ...film,
-      'film_info': {
-        ...filmInfo,
-        'alternative_title': filmInfo.alternativeTitle,
-        'total_rating': filmInfo.totalRating,
-        'age_rating': filmInfo.ageRating,
-        release: {
-          ...filmInfo.release,
-          'release_country': filmInfo.release.releaseCountry
-        },
-        'user_details': {
-          ...filmInfo.userDetails,
-          'watchlist': filmInfo.userDetails.watchList,
-          'already_watched': filmInfo.userDetails.alreadyWatched,
-          'watching_date': filmInfo.userDetails.watchingDate
-        }
+      ['film_info']: {
+        ...film.filmInfo,
+        ['alternative_title']: film.filmInfo.alternativeTitle,
+        ['total_rating']: film.filmInfo.totalRating,
+        ['age_rating']: film.filmInfo.ageRating
+      },
+      ['user_details']: {
+        ...film.userDetails,
+        ['already_watched']: film.userDetails.alreadyWatched,
+        ['watching_date']: film.userDetails.watchingDate
       }
-    }
+    };
 
-    this.#deleteUnusedProps(adaptedFilm);
+    delete adaptedFilm.filmInfo;
+    delete adaptedFilm.userDetails;
+    delete adaptedFilm['film_info'].alternativeTitle;
+    delete adaptedFilm['film_info'].totalRating;
+    delete adaptedFilm['film_info'].ageRating;
+    delete adaptedFilm['user_details'].alreadyWatched;
+    delete adaptedFilm['user_details'].watchingDate;
 
     return adaptedFilm;
   }
