@@ -1,8 +1,6 @@
-import {generateComments} from '../mock/comment.js';
 import Observable from "../framework/observable";
 
 export default class CommentsModel extends Observable{
-  #filmsModel = null;
   #commentsApiService = null;
   #allComments = [];
   #comments = [];

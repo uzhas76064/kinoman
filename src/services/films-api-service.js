@@ -3,7 +3,6 @@ import ApiService from "../framework/api-service";
 const METHODS = {
   GET: 'GET',
   PUT: 'PUT',
-  DELETE: 'DELETE'
 }
 
 export default class FilmsApiService extends ApiService{
