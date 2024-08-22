@@ -2,12 +2,13 @@ import Observable from "../framework/observable";
 
 export default class CommentsModel extends Observable{
   #commentsApiService = null;
-  #allComments = [];
   #comments = [];
+  #filmsModel = null;
 
-  constructor(apiService) {
+  constructor(apiService, filmsModel) {
     super();
     this.#commentsApiService = apiService;
+    this.#filmsModel = filmsModel;
   }
 
   get = async (film) => {
@@ -15,25 +16,49 @@ export default class CommentsModel extends Observable{
     return this.#comments;
   };
 
-  add = (updateType, update) => {
-    this.#allComments.push(update);
-    this._notify(updateType, update);
+  add = async (updateType, film, createdComment) => {
+    try {
+      const response = await this.#commentsApiService.addComment(film, createdComment);
+
+      this.#comments = response.comments;
+
+      await this.#filmsModel.updateOnClient({
+        updateType,
+        update: response.movie,
+        isAdapted: false
+      });
+    } catch {
+      throw new Error('Can\'t add comment');
+    }
   };
 
-  delete = (updateType, update) => {
-    const index = this.#allComments.findIndex(
-      (comment) => comment.id === update.id
+  delete = async (updateType, film, deletedComment) => {
+    const index = this.#comments.findIndex(
+      (comment) => comment.id === deletedComment.id
     );
 
     if (index === -1) {
-      throw new Error('Can\'t delete not existing comment');
+      throw new Error('Can\'t delete unexisting comment');
     }
 
-    this.#allComments = [
-      ...this.#allComments.slice(0, index),
-      ...this.#allComments.slice(index + 1),
-    ];
+    try {
+      await this.#commentsApiService.deleteComment(deletedComment);
 
-    this._notify(updateType);
+      const updateFilm = {
+        ...film,
+        comments: [
+          ...film.comments.slice(0, index),
+          ...film.comments.slice(index + 1)
+        ]
+      };
+
+      await this.#filmsModel.updateOnClient({
+        updateType,
+        update: updateFilm,
+        isAdapted: true
+      });
+    } catch {
+      throw new Error('Can\'t delete comment');
+    }
   };
 }

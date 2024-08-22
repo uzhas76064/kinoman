@@ -41,6 +41,14 @@ export default class FilmCardPresenter {
     remove(prevFilmComponent);
   }
 
+  setFilmEditing = () => {
+    this.#filmCardComponent.updateElement({isFilmEditing: true});
+  };
+
+  setAborting = () => {
+    this.#filmCardComponent.updateElement({isFilmEditing: false});
+  };
+
   destroy = () => {
     remove(this.#filmCardComponent);
   }

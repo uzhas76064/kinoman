@@ -69,6 +69,20 @@ export default class FilmDetailsPresenter {
     remove(this.#filmDetailsComponent);
   }
 
+  clearViewData = () => {
+    this.updateLocalCommentViewData({
+      comment: null,
+      emotion: null,
+      scrollPosition: this.#localCommentViewData.scrollPosition
+    });
+
+    this.#filmDetailsComponent.updateElement({
+      checkedEmotion: this.#localCommentViewData.emotion,
+      comment: this.#localCommentViewData.comment,
+      scrollPosition: this.#localCommentViewData.scrollPosition
+    });
+  };
+
   createComment = () => {
     this.#filmDetailsComponent.setCommentData();
 
@@ -99,6 +113,51 @@ export default class FilmDetailsPresenter {
       );
     }
   }
+
+  setCommentCreating = () => {
+    this.#filmDetailsComponent.updateElement({
+      ...this.#localCommentViewData,
+      isDisabled: true,
+      isCommentCreating: true
+    });
+  };
+
+  setCommentDeleting = (commentId) => {
+    this.#filmDetailsComponent.updateElement({
+      ...this.#localCommentViewData,
+      isDisabled: true,
+      deleteCommentId: commentId
+    });
+  };
+
+  setFilmEditing = () => {
+    this.#filmDetailsComponent.updateElement({
+      ...this.#localCommentViewData,
+      isDisabled: true,
+      isFilmEditing: true,
+    });
+  };
+
+  setAborting = ({actionType, commentId}) => {
+    this.#filmDetailsComponent.updateElement({
+      ...this.#localCommentViewData,
+      isDisabled: false,
+      deleteCommentId: null,
+      isFilmEditing: false,
+    });
+
+    switch (actionType) {
+      case UserAction.UPDATE_FILM:
+        this.#filmDetailsComponent.shakeControls();
+        break;
+      case UserAction.ADD_COMMENT:
+        this.#filmDetailsComponent.shakeForm();
+        break;
+      case UserAction.DELETE_COMMENT:
+        this.#filmDetailsComponent.shakeComment(commentId);
+        break;
+    }
+  };
 
   updateLocalCommentViewData = (viewData) => {
     this.#localCommentViewData = {...viewData}

@@ -37,7 +37,6 @@ const createFilmDetailsTemplate = ({filmInfo, userDetails, comment, checkedEmoti
  `;
 
 export default class FilmDetailsView extends AbstractStatefulView {
-
   constructor(film, comments, viewData, updateViewData) {
     super();
     this._state = this.#convertFilmToState(
@@ -72,6 +71,21 @@ export default class FilmDetailsView extends AbstractStatefulView {
     this.element.querySelector('.film-details__comment-input')
       .addEventListener('input', this.#commentInputHandler)
   }
+
+  shakeComment = (commentId) => {
+    const commentElement = this.element.querySelector(`li[data-comment-id='${commentId}']`);
+    this.shake.call({element: commentElement});
+  };
+
+  shakeForm = () => {
+    const formElement = this.element.querySelector('.film-details__new-comment');
+    this.shake.call({element: formElement});
+  };
+
+  shakeControls = () => {
+    const controlsElement = this.element.querySelector('.film-details__controls');
+    this.shake.call({element: controlsElement});
+  };
 
   // TODO исправить скролл при изменении эмоции в новом комментарии
   #convertFilmToState = (film, comments, checkedEmotion=null, comment=null, scrollPosition=0) => ({

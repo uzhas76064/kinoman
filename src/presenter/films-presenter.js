@@ -59,19 +59,51 @@ export default class FilmsPresenter {
     return filter[filterType](films);
   }
 
-  #viewActionHandler = (actionType, updateType, updateFilm, updateComment) => {
+  #viewActionHandler = async (actionType, updateType, updateFilm, updateComment) => {
     switch (actionType) {
       case UserAction.UPDATE_FILM:
-        this.#filmsModel.update(updateType, updateFilm);
+        if (
+          this.#filmCardPresenter.get(updateFilm.id) &&
+          !this.#filmDetailsPresenter
+        ) {
+          this.#filmCardPresenter.get(updateFilm.id).setFilmEditing();
+        }
+
+        if (this.#filmDetailsPresenter) {
+          this.#filmDetailsPresenter.setFilmEditing();
+        }
+
+        try {
+          await this.#filmsModel.updateOnServer(updateType, updateFilm);
+        } catch {
+          if (
+            this.#filmCardPresenter.get(updateFilm.id) &&
+            !this.#filmDetailsPresenter
+          ) {
+            this.#filmCardPresenter.get(updateFilm.id).setAborting();
+          }
+
+          if (this.#filmDetailsPresenter) {
+            this.#filmDetailsPresenter.setAborting({actionType});
+          }
+        }
         break;
       case UserAction.ADD_COMMENT:
-        this.#commentsModel.add(updateType, updateComment);
-        this.#filmDetailsPresenter.clearLocalCommentViewData();
-        this.#filmsModel.update(updateType, updateFilm);
+        this.#filmDetailsPresenter.setCommentCreating();
+        try {
+          await this.#commentsModel.add(updateType, updateFilm, updateComment);
+          this.#filmDetailsPresenter.clearViewData();
+        } catch {
+          this.#filmDetailsPresenter.setAborting({actionType});
+        }
         break;
       case UserAction.DELETE_COMMENT:
-        this.#commentsModel.delete(updateType, updateComment);
-        this.#filmsModel.update(updateType, updateFilm);
+        this.#filmDetailsPresenter.setCommentDeleting(updateComment.id);
+        try {
+          await this.#commentsModel.delete(updateType, updateFilm, updateComment);
+        } catch {
+          this.#filmDetailsPresenter.setAborting({actionType, commentId: updateComment.id});
+        }
         break;
     }
   };
